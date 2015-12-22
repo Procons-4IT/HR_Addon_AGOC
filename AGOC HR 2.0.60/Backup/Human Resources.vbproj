@@ -1,0 +1,458 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A240F536-D2D5-431C-86C2-581C6AD2FED7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>HumanResources.clsStart</StartupObject>
+    <RootNamespace>HumanResources</RootNamespace>
+    <AssemblyName>Human Resources</AssemblyName>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>Human Resources.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>Human Resources.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=12.0.1100.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=12.0.1100.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="Interop.Scripting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base Classes\clsBase.vb" />
+    <Compile Include="Base Classes\clsListener.vb" />
+    <Compile Include="Base Classes\clsLog_Error.vb" />
+    <Compile Include="Base Classes\clsStart.vb" />
+    <Compile Include="Base Classes\clsTable.vb" />
+    <Compile Include="Base Classes\clsUtilities.vb" />
+    <Compile Include="Base Classes\DBConnection.vb" />
+    <Compile Include="bin\Debug\Reports\Copy of rptAppraisal1.vb">
+      <DependentUpon>Copy of rptAppraisal1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="bin\Debug\Reports\rptApp.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptApp.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="bin\Debug\Reports\rptAppraisal.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAppraisal.rpt</DependentUpon>
+    </Compile>
+    <Compile Include="Business Logics\clsAppShortListedApproval.vb" />
+    <Compile Include="Business Logics\clsBranchesMaster.vb" />
+    <Compile Include="Business Logics\clsChooseFromList.vb" />
+    <Compile Include="Business Logics\clsDepartmentMaster.vb" />
+    <Compile Include="Business Logics\clsDisRule.vb" />
+    <Compile Include="Business Logics\clshrAppHisDetails.vb" />
+    <Compile Include="Business Logics\clshrAppraisalDistribution.vb" />
+    <Compile Include="Business Logics\clshrApproval.vb" />
+    <Compile Include="Business Logics\clshrApproveTemp.vb" />
+    <Compile Include="Business Logics\clshrASCanSelection.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionGA.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionIPHOD.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionIPHR.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionIPLM.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionIPSum.vb" />
+    <Compile Include="Business Logics\clshrASCanSelectionSe.vb" />
+    <Compile Include="Business Logics\clshrAssExpenses.vb" />
+    <Compile Include="Business Logics\clshrAssignTraPlan.vb" />
+    <Compile Include="Business Logics\clshrCandidates.vb" />
+    <Compile Include="Business Logics\clshrCompObjMaster.vb" />
+    <Compile Include="Business Logics\clshrCourseCategory.vb" />
+    <Compile Include="Business Logics\clshrCourseReview.vb" />
+    <Compile Include="Business Logics\clshrCourseType.vb" />
+    <Compile Include="Business Logics\clshrCrApplicants.vb" />
+    <Compile Include="Business Logics\clshrDocumentType.vb" />
+    <Compile Include="Business Logics\clshrEmailSetUp.vb" />
+    <Compile Include="Business Logics\clshrEmpAbsSummary.vb" />
+    <Compile Include="Business Logics\clshrEmpLifeApproval.vb" />
+    <Compile Include="Business Logics\clshrEmpLifePosting.vb" />
+    <Compile Include="Business Logics\clshrEmpPosChangeApp.vb" />
+    <Compile Include="Business Logics\clshrEmpPosition.vb" />
+    <Compile Include="Business Logics\clshrEmpTraining.vb" />
+    <Compile Include="Business Logics\clshrExitfrmInitialization.vb" />
+    <Compile Include="Business Logics\clshrExitInterview.vb" />
+    <Compile Include="Business Logics\clshrExitProcess.vb" />
+    <Compile Include="Business Logics\clshrExitQuestion.vb" />
+    <Compile Include="Business Logics\clshrExitResponse.vb" />
+    <Compile Include="Business Logics\clshrExpClaimRequest.vb" />
+    <Compile Include="Business Logics\clshrExpenses.vb" />
+    <Compile Include="Business Logics\clshrFinalApproval.vb" />
+    <Compile Include="Business Logics\ClshrGAcceptance.vb" />
+    <Compile Include="Business Logics\clshrHireToEmp.vb" />
+    <Compile Include="Business Logics\clshrHiring.vb" />
+    <Compile Include="Business Logics\clshrHRTrainApp.vb" />
+    <Compile Include="Business Logics\clshrInitializeAppraisal.vb" />
+    <Compile Include="Business Logics\clshrIntRating.vb" />
+    <Compile Include="Business Logics\ClshrIPProcessForm.vb" />
+    <Compile Include="Business Logics\clshrLanguages.vb" />
+    <Compile Include="Business Logics\clshrLeaveApproval.vb" />
+    <Compile Include="Business Logics\clshrLeaveRequest.vb" />
+    <Compile Include="Business Logics\clshrLogin.vb" />
+    <Compile Include="Business Logics\clshrLoginSetup.vb" />
+    <Compile Include="Business Logics\clshrMgrRegTrainApproval.vb" />
+    <Compile Include="Business Logics\clshrMgrTrainApp.vb" />
+    <Compile Include="Business Logics\clshrMgrTrainingEva.vb" />
+    <Compile Include="Business Logics\clsHRModule.vb" />
+    <Compile Include="Business Logics\clshrAllowance.vb" />
+    <Compile Include="Business Logics\clshrBenefits.vb" />
+    <Compile Include="Business Logics\clshrBussObjective.vb" />
+    <Compile Include="Business Logics\clshrCompany.vb" />
+    <Compile Include="Business Logics\clshrCompLevel.vb" />
+    <Compile Include="Business Logics\clshrCompObjective.vb" />
+    <Compile Include="Business Logics\clshrCourse.vb" />
+    <Compile Include="Business Logics\clshrDeptMapping.vb" />
+    <Compile Include="Business Logics\clshrFunction.vb" />
+    <Compile Include="Business Logics\clshrGrade.vb" />
+    <Compile Include="Business Logics\clshrLocation.vb" />
+    <Compile Include="Business Logics\clshrMPRApproval.vb" />
+    <Compile Include="Business Logics\clshrMPRequest.vb" />
+    <Compile Include="Business Logics\clshrNewTrainRequest.vb" />
+    <Compile Include="Business Logics\clshrObjLoan.vb" />
+    <Compile Include="Business Logics\clshrORejectionMaster.vb" />
+    <Compile Include="Business Logics\clshrOrgStructure.vb" />
+    <Compile Include="Business Logics\clshrPayMethod.vb" />
+    <Compile Include="Business Logics\clshrPeoCategory.vb" />
+    <Compile Include="Business Logics\clshrPeoObjective.vb" />
+    <Compile Include="Business Logics\clshrPosCompetence.vb" />
+    <Compile Include="Business Logics\clshrLevel.vb" />
+    <Compile Include="Business Logics\clshrPosition.vb" />
+    <Compile Include="Business Logics\clshrPostionChanges.vb" />
+    <Compile Include="Business Logics\clshrPromotion.vb" />
+    <Compile Include="Business Logics\clshrRating.vb" />
+    <Compile Include="Business Logics\clshrRecApproval.vb" />
+    <Compile Include="Business Logics\clshrRecClosing.vb" />
+    <Compile Include="Business Logics\clshrRecOverview.vb" />
+    <Compile Include="Business Logics\clshrRecReqReason.vb" />
+    <Compile Include="Business Logics\clsHRRegTrainApproval.vb" />
+    <Compile Include="Business Logics\clshrRejectionMaster.vb" />
+    <Compile Include="Business Logics\clshrSalStructure.vb" />
+    <Compile Include="Business Logics\clshrSApproval.vb" />
+    <Compile Include="Business Logics\clshrSearch.vb" />
+    <Compile Include="Business Logics\clshrSelfAppraisal.vb" />
+    <Compile Include="Business Logics\clshrShortApproval.vb" />
+    <Compile Include="Business Logics\ClshrSlctnCreteria.vb" />
+    <Compile Include="Business Logics\ClshrSlctnCreteriaGA.vb" />
+    <Compile Include="Business Logics\clshrTraExpOverView.vb" />
+    <Compile Include="Business Logics\clshrTrainEvaluation.vb" />
+    <Compile Include="Business Logics\clshrTrainingReg.vb" />
+    <Compile Include="Business Logics\clshrTrainner.vb" />
+    <Compile Include="Business Logics\clshrTrainNewApproval.vb" />
+    <Compile Include="Business Logics\clshrTrainPlan.vb" />
+    <Compile Include="Business Logics\clshrTrainQCCategory.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Business Logics\clshrTrainQCItem.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Business Logics\clshrTrainQCRateing.vb" />
+    <Compile Include="Business Logics\clshrClaimApproval.vb" />
+    <Compile Include="Business Logics\clshrTrainRegApproval.vb" />
+    <Compile Include="Business Logics\clshrTransfer.vb" />
+    <Compile Include="Business Logics\clshrTravelAgenda.vb" />
+    <Compile Include="Business Logics\clshrTravelApproval.vb" />
+    <Compile Include="Business Logics\clshrTravelRequest.vb" />
+    <Compile Include="Business Logics\clshrUnit.vb" />
+    <Compile Include="Business Logics\clshrLeaveMaster.vb" />
+    <Compile Include="Business Logics\clshrViewTraRequest.vb" />
+    <Compile Include="Business Logics\clsTemplateClasss.vb" />
+    <Compile Include="Business Logics\clsSystemForms.vb" />
+    <Compile Include="Business Logics\clsTrainApproved.vb" />
+    <Compile Include="Business Logics\clsUpdatePayroll.vb" />
+    <Compile Include="Business Logics\clsVariableEarning.vb" />
+    <Compile Include="Business Logics\clsViewEmpDetails.vb" />
+    <Compile Include="Business Logics\clsAppShortListed.vb" />
+    <Compile Include="Business Logics\clshrInterviewType.vb" />
+    <Compile Include="Business Logics\ClshrIPOfferAcceptance.vb" />
+    <Compile Include="Business Logics\clshrAppraisalEmail.vb" />
+    <Compile Include="Business Logics\clshrSection.vb" />
+    <Compile Include="Business Logics\clshrResidencyStatus.vb" />
+    <Compile Include="Business Logics\clshrFApproval.vb" />
+    <Compile Include="Business Logics\clshrHRecApproval.vb" />
+    <Compile Include="Business Logics\Custom_ChooseFromList.vb" />
+    <Compile Include="Modules\modVariables.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reports\dsAI.Designer.vb">
+      <DependentUpon>dsAI.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\dsAI.vb">
+      <DependentUpon>dsAI.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\dsAppraisal.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsAppraisal.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\dsAppraisal.vb">
+      <DependentUpon>dsAppraisal.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="bin\Debug\Reports\Copy of rptAppraisal1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>Copy of rptAppraisal1.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\Reports\rptApp.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptApp.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="bin\Debug\Reports\rptAppraisal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAppraisal.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\Report.pdf" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Modules\vssver.scc" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Reports\dsAI.xsc">
+      <DependentUpon>dsAI.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\dsAI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Reports\dsAI.xss">
+      <DependentUpon>dsAI.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\dsAppraisal.xsc">
+      <DependentUpon>dsAppraisal.xsd</DependentUpon>
+    </None>
+    <None Include="Reports\dsAppraisal.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsAppraisal.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Reports\dsAppraisal.xss">
+      <DependentUpon>dsAppraisal.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\ApprisalLog.txt" />
+    <Content Include="bin\Debug\Appraisal.htm" />
+    <Content Include="bin\Debug\Appraisal.htm" />
+    <Content Include="bin\Debug\Agenda.htm" />
+    <Content Include="bin\Debug\XML Files\CFL.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LeaveApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_FinalApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LveRequest.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ShortApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_MPRApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainNewApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainRegApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_DisRule.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppHisDetails.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ApproveTemp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_DocType.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpPosition.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpClaimReq.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_HRecApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_FApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppDisMaster.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHOD.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHR.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPLM.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPSUM.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionSe.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpLifeApp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpLifePost.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpPosChApp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitfrmInit.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitInvForm.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitProcess.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitResponse.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_HRRegTrainApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_IPGAcceptance.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_MgrEva.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_MgrRegTrainApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ObjLoan.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_PayMethod.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Qustionaire.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_RecReqReason.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ResidencyStatus.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Section.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppraisalEMail.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmailSetUp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_IPOfferAcceptance.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CompObjmaster.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_InterviewType.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Allowance.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppAttendees.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Approval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppShortListed.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AssExpenses.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AssignTraPlan.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Benefits.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_BranchMaster.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_BussObjective.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Candidates.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Company.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CompObjective.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Course.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CourseCategory.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CourseRev.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CourseType.xml" />
+    <Content Include="bin\Debug\XML Files\frm_HR_CrApplicants.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_CReqSelection.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_DeptMapp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpTraining.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpenseClaim.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Expenses.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Function.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_GAcceptance.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_GradeLevel.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_HireToEmp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Hiring.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_HRTrainApp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_IniAppraisal.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_IPProcessForm.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_IRatings.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Location.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Login.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LoginSetup.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_MgrTrainApp.xml" />
+    <Content Include="bin\Debug\XML Files\frm_Hr_MPRequest.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_NewTrainReq.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ORejectionMaster.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_OrgStructure.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_PeoCategory.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_PeopleObj.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_PosChanges.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_PosCompetenc.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Level.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Position.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Promotion.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Ratings.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_RecApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_RecClosing.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_RejectionMaster.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_SalStructure.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Search.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_SelfAppraisal.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_SlctnCreteria.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_SlctnCreteriaGA.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TraAgenda.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TraExpOverView.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainEval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_HR_Trainner.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainPlan.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainQcRA.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TrainReg.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ClaimApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Transfer.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TraRequest.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TravelApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_TravelPlan.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Unit.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ViewEmpDetails.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ViewTraApp.xml" />
+    <Content Include="bin\Debug\XML Files\Menu.xml" />
+    <Content Include="bin\Debug\XML Files\RemoveMenus.xml" />
+    <Content Include="bin\Debug\XML Files\xml_hr_DeptMaster.xml" />
+    <Content Include="Crystal Reports Backup Files\Human Resources.vbproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3924545A-F8E2-475A-B1A4-05175BC41E50}" />
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SAPbobsCOM">
+      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="SAPbouiCOM">
+      <Guid>{6048236A-956D-498D-A6F1-9C81C13AB6E8}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\Log\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

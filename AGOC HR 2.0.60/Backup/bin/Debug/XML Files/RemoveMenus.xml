@@ -1,0 +1,139 @@
+﻿<Application>
+	<Menus>
+		<action type="remove">
+			<!--<Menu UniqueID="DABT_910"></Menu>-->
+		
+      <Menu UniqueID="Z_mnu_HR_Setup"></Menu>
+      <Menu UniqueID="Z_mnu_HR_User"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_Login"></Menu>
+      <Menu UniqueID="z_mnu_hr_EmailSetUp"></Menu>
+      <Menu UniqueID="Z_mnu_HR_General"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_comp"></Menu>
+      <Menu UniqueID="z_mnu_hr_Dept"></Menu>
+      <Menu UniqueID="z_mnu_hr_Func"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_Unit"></Menu>
+      <Menu UniqueID="z_mnu_hr_Loc"></Menu>
+      <Menu UniqueID="z_mnu_hr_Branch"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_Sec"></Menu>
+      <Menu UniqueID="z_mnu_hr_OrgSt"></Menu>
+      <Menu UniqueID="z_mnu_hr_OLoan"></Menu>
+      <Menu UniqueID="Z_mnu_HR_5000"></Menu>
+      <menu UniqueID="Z_mnu_HR_TraEva"></menu>
+
+      <Menu UniqueID="z_mnu_hr_Lang"></Menu>
+      <Menu UniqueID="z_mnu_hr_ExitRes"></Menu>
+      <Menu UniqueID="z_mnu_hr_QusMaster"></Menu>
+
+      <Menu UniqueID="Z_mnu_HR_Salary"></Menu>
+      <Menu UniqueID="z_mnu_hr_Grade"></Menu>
+      <Menu UniqueID="z_mnu_hr_Level"></Menu>
+      <menu UniqueID="Z_mnu_HR_Salary"></menu>
+
+      <Menu UniqueID="z_mnu_hr_Allow"></Menu>
+      <Menu UniqueID="z_mnu_hr_Benefit"></Menu>
+      <Menu UniqueID="z_mnu_hr_SalStru"></Menu>
+
+      <Menu UniqueID="Z_mnu_HR_JobSt"></Menu>
+      <Menu UniqueID="z_mnu_hr_Position"></Menu>
+      <Menu UniqueID="z_mnu_hr_PosComp"></Menu>
+
+      
+      <Menu UniqueID="z_mnu_hr_CompObj"></Menu>
+      <Menu UniqueID="z_mnu_hr_CompLvl"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Rec"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_IntType"></Menu>
+      <Menu UniqueID="z_mnu_hr_IRating"></Menu>
+      <Menu UniqueID="z_mnu_hr_RecReqReason"></Menu>
+
+      <Menu UniqueID="z_mnu_hr_Rejection"></Menu>
+      <Menu UniqueID="z_mnu_hr_ORejection"></Menu>
+      <Menu UniqueID="z_mnu_hr_RSta"></Menu>
+      
+      
+      <Menu UniqueID="Z_mnu_HR_Appraisal"></Menu>
+      <Menu UniqueID="z_mnu_hr_Ratings"></Menu>
+      <Menu UniqueID="z_mnu_hr_ObjResult"></Menu>
+      <Menu UniqueID="z_mnu_hr_PeoCategory"></Menu>
+      <Menu UniqueID="z_mnu_hr_PeoObj"></Menu>
+      <Menu UniqueID="z_mnu_hr_BussObj"></Menu>
+      <Menu UniqueID="z_mnu_hr_DeptMapp"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Training"></Menu>
+      <Menu UniqueID="z_mnu_hr_courseType"></Menu>
+      <Menu UniqueID="z_mnu_hr_courseCategory"></Menu>
+      <Menu UniqueID="z_mnu_hr_course"></Menu>
+      <menu uniqueid="Z_mnu_TraQcCa"></menu>
+      <menu uniqueid="Z_mnu_TraQcIt"></menu>
+      <menu uniqueid="Z_mnu_TraQcRA"></menu>
+      <Menu UniqueID="z_mnu_hr_TrnPlan"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Trainner"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Travel"></Menu>
+      <Menu UniqueID="z_mnu_hr_Expenses"></Menu>
+      <Menu UniqueID="z_mnu_hr_TraAgenda"></Menu>
+
+      <Menu UniqueID="mnu_HR_Approve"></Menu>
+      <Menu UniqueID="mnu_hr_AppTemp"></Menu>
+      
+      <Menu UniqueID="Z_mnu_HR_TraAppraisal"></Menu>
+      <Menu UniqueID="z_mnu_hr_IniApp"></Menu>
+      <Menu UniqueID="z_mnu_hr_AppraisalEmail"></Menu>
+      <Menu UniqueID="z_mnu_hr_SelfApp"></Menu>
+      <Menu UniqueID="z_mnu_hr_MgrApp"></Menu>
+      <Menu UniqueID="z_mnu_hr_SMgr_App"></Menu>
+      <Menu UniqueID="z_mnu_hr_HRApp"></Menu>
+      <Menu UniqueID="z_mnu_hr_GAcceptance"></Menu>
+      <Menu UniqueID="Z_mnu_HR_EmpTraining"></Menu>
+      <Menu UniqueID="Z_mnu_HR_EmpTraining1"></Menu>
+      <Menu UniqueID="Z_mnu_HR_MgrRegTrainApp"></Menu>
+      <Menu UniqueID="Z_mnu_HR_HRRegTrainApp"></Menu>
+      <Menu UniqueID="Z_mnu_HR_TrainingReg"></Menu>
+      <Menu UniqueID="Z_mnu_HR_AppAttendees"></Menu>
+      <Menu UniqueID="Z_mnu_HR_EmpNewTraining"></Menu>
+      <Menu UniqueID="Z_mnu_HR_MgrTrainApp"></Menu>
+      <Menu UniqueID="Z_mnu_HR_HRTrainApp"></Menu>
+      
+      
+      
+      
+      <Menu UniqueID="Z_mnu_HR_Recruitment"></Menu>
+      <Menu UniqueID="Z_mnu_HR_MPRequest"></Menu>
+      <Menu UniqueID="Z_mnu_HR_MPHrApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_MPGMApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_CrApplicants"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Search"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ASCandidates"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ASLMApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ASSMApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPApprovals"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPLM"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPLMU"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPHOD"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPHR"></Menu>
+      <Menu UniqueID="Z_mnu_HR_IPOA"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Hiring"></Menu>
+      <Menu UniqueID="Z_mnu_HR_RecOverview"></Menu>
+      <Menu UniqueID="Z_mnu_HR_RecClosing"></Menu>
+      <Menu UniqueID="Z_mnu_HR_EmpLifeCycle"></Menu>
+      <Menu UniqueID="Z_mnu_HR_PlaTransfer"></Menu>
+      <Menu UniqueID="Z_mnu_HR_Promotion"></Menu>
+      <Menu UniqueID="Z_mnu_HR_PosChange"></Menu>
+      <Menu UniqueID="Z_mnu_HR_EmpExitForm"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExitFormIni"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExitFormPro"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExitInvForm"></Menu>
+      <Menu UniqueID="Z_mnu_HR_UpdatePayroll"></Menu>
+      <Menu UniqueID="Z_mnu_HR_TravelMgnt"></Menu>
+      <Menu UniqueID="Z_mnu_HR_TraRequest"></Menu>
+      <Menu UniqueID="Z_mnu_HR_TraApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExpClaim"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExpApproval"></Menu>
+      <Menu UniqueID="Z_mnu_HR_TraOverview"></Menu>
+      <Menu UniqueID="Z_mnu_HR_ExpOverview"></Menu>
+      
+		</action>
+	</Menus>
+</Application>

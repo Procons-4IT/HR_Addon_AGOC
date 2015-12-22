@@ -1,0 +1,332 @@
+<Application>
+  <Menus>
+    <action type="add">
+
+      <!--<Menu Checked="0" Enabled="1" FatherUID="2048" Image="" Position="2" String="Sales Order Line Closure"
+			Type="1" UniqueID="DABT_910">
+			</Menu>-->
+      <Menu Checked="0" Enabled="1" FatherUID="43525" Image="" Position="7" String="Human Resources"
+      Type="2" UniqueID="Z_mnu_HR_Setup">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="0" String="User Security Setup"
+            Type="2" UniqueID="Z_mnu_HR_User">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_User" Image="" Position="0" String="ESS User Setup"
+           Type="1" UniqueID="z_mnu_hr_Login">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_User" Image="" Position="1" String="Email-Setup"
+           Type="1" UniqueID="z_mnu_hr_EmailSetUp">	</Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="1" String="Organization Chart "
+				Type="2" UniqueID="Z_mnu_HR_General1">	</Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General1" Image="" Position="0" String="Organization Setup "
+				Type="2" UniqueID="Z_mnu_HR_General">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="0" String="Company Master"
+				Type="1" UniqueID="z_mnu_hr_comp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="1" String="Department-Master"
+        Type="1" UniqueID="z_mnu_hr_Dept">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="2" String="Function Master"
+      Type="1" UniqueID="z_mnu_hr_Func">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="3" String="Unit Master"
+       Type="1" UniqueID="z_mnu_hr_Unit">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="4" String="Location Master"
+      Type="1" UniqueID="z_mnu_hr_Loc">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="5" String="Branch Master"
+     Type="1" UniqueID="z_mnu_hr_Branch">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="6" String="Section Master"
+      Type="1" UniqueID="z_mnu_hr_Sec">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="7" String="Map Organizational Chart"
+     Type="1" UniqueID="z_mnu_hr_OrgSt">	</Menu>   
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="8" String="Objects On Loan Master"
+    Type="1" UniqueID="z_mnu_hr_OLoan">	</Menu>-->
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General1" Image="" Position="1" String="Salary Structure"
+         Type="2" UniqueID="Z_mnu_HR_Salary">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="0" String="Grade Master"
+  Type="1" UniqueID="z_mnu_hr_Grade">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="1" String="Level Master"
+    Type="1" UniqueID="z_mnu_hr_Level">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="2" String="Salary Scale"
+     Type="1" UniqueID="z_mnu_hr_SalStru">	</Menu>-->
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="2" String="Allowance Master"
+     Type="1" UniqueID="z_mnu_hr_Allow">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="3" String="Variable Earning Setup"
+    Type="1" UniqueID="Z_Mnu_HRVEARNING"></Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="4" String="Employer Contribution"
+      Type="1" UniqueID="z_mnu_hr_Benefit">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="5" String="Leave Type Master"
+     Type="1" UniqueID="mnu_Hr_LeaveMa">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Salary" Image="" Position="6" String="Salary Scale"
+       Type="1" UniqueID="z_mnu_hr_SalStru">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General1" Image="" Position="2" String="Job Structure"
+       Type="2" UniqueID="Z_mnu_HR_JobSt">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_JobSt" Image="" Position="1" String="Position Master"
+   Type="1" UniqueID="z_mnu_hr_Position">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_JobSt" Image="" Position="0" String="Job Description Master"
+      Type="1" UniqueID="z_mnu_hr_PosComp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_JobSt" Image="" Position="2" String="Competency Master "
+      Type="1" UniqueID="z_mnu_hr_CompObj">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_JobSt" Image="" Position="3" String="Competency Level Master"
+     Type="1" UniqueID="z_mnu_hr_CompLvl">	</Menu>
+      
+      
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General1" Image="" Position="3" String="Languages Master"
+  Type="1" UniqueID="z_mnu_hr_Lang">	</Menu>
+
+
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="2" String="Recruitment"
+       Type="2" UniqueID="Z_mnu_HR_Rec">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="0" String="Interview Type"
+           Type="1" UniqueID="z_mnu_hr_IntType">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="1" String="Interview Rating Master"
+    Type="1" UniqueID="z_mnu_hr_IRating">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="2" String="Recruitment Request Reason Master"
+        Type="1" UniqueID="z_mnu_hr_RecReqReason">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="3" String="Rejection Reason Master"
+      Type="1" UniqueID="z_mnu_hr_Rejection"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="4" String="Offer Rejection Master"
+     Type="1" UniqueID="z_mnu_hr_ORejection"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="5" String="Residency Status Master"
+     Type="1" UniqueID="z_mnu_hr_RSta"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="6" String="Employee Exit Responsibilities"
+Type="1" UniqueID="z_mnu_hr_ExitRes">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Rec" Image="" Position="7" String="Questionnaire Master"
+ Type="1" UniqueID="z_mnu_hr_QusMaster">	</Menu>
+
+
+
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="11" String="Salary Scale"
+           Type="1" UniqueID="z_mnu_hr_SalStru">	</Menu>-->
+
+     
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_General" Image="" Position="12" String="Position-Setup"
+      Type="1" UniqueID="z_mnu_hr_PositionMa">	</Menu>-->
+
+
+
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="3" String="Appraisal"
+       Type="2" UniqueID="Z_mnu_HR_Appraisal">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="0" String="Ratings Master"
+     Type="1" UniqueID="z_mnu_hr_Ratings">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="1" String="Appraisal Objective Destribution Master"
+  Type="1" UniqueID="z_mnu_hr_ObjResult">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="2" String="Personal Objective Category Master"
+      Type="1" UniqueID="z_mnu_hr_PeoCategory">	</Menu>     
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="3" String="Personal Objectives"
+     Type="1" UniqueID="z_mnu_hr_PeoObj">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="4" String="Business Objectives"
+     Type="1" UniqueID="z_mnu_hr_BussObj">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="5" String="Department Business Objectives Mapping"
+    Type="1" UniqueID="z_mnu_hr_DeptMapp">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="4" String="Training"
+       Type="2" UniqueID="Z_mnu_HR_Training">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="0" String="Course Type Master"
+    Type="1" UniqueID="z_mnu_hr_courseType">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="1" String="Course Category Master"
+    Type="1" UniqueID="z_mnu_hr_courseCategory">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="2" String="Course - Setup"
+      Type="1" UniqueID="z_mnu_hr_course">	</Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="3" String="Training Evaluation"
+      Type="2" UniqueID="Z_mnu_HR_5000">	</Menu>
+      
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_5000" Image="" Position="0" String="Questionnaire Categories"
+     Type="1" UniqueID="Z_mnu_TraQcCa">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_5000" Image="" Position="1" String="Questionnaire Items"
+    Type="1" UniqueID="Z_mnu_TraQcIt">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_5000" Image="" Position="2" String="Questionnaire Rating"
+  Type="1" UniqueID="Z_mnu_TraQcRA">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="4" String="Training Agenda - Setup"
+      Type="1" UniqueID="z_mnu_hr_TrnPlan">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Training" Image="" Position="5" String="Trainner- Profile"
+  Type="1" UniqueID="Z_mnu_HR_Trainner">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="5" String="Travel"
+      Type="2" UniqueID="Z_mnu_HR_Travel">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Travel" Image="" Position="0" String="Expenses Master"
+      Type="1" UniqueID="z_mnu_hr_Expenses">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Travel" Image="" Position="1" String="Payment Method Master"
+     Type="1" UniqueID="mnu_hr_PayMethod">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Travel" Image="" Position="2" String="Travel Agenda - Setup"
+      Type="1" UniqueID="z_mnu_hr_TraAgenda">	</Menu>
+
+       <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="6" String="Approval Template"
+      Type="2" UniqueID="mnu_HR_Approve">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="mnu_HR_Approve" Image="" Position="0" String="Document Type"
+      Type="1" UniqueID="mnu_hr_DocType">	</Menu>-->
+      <Menu Checked="0" Enabled="1" FatherUID="mnu_HR_Approve" Image="" Position="0" String="Approval Template - Setup"
+     Type="1" UniqueID="mnu_hr_AppTemp">	</Menu>
+
+     
+      <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="2" String="Appraisal"
+          Type="2" UniqueID="Z_mnu_HR_TraAppraisal">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="0" String="Appraisals Initialization"
+   Type="1" UniqueID="z_mnu_hr_IniApp">	</Menu>
+   <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="1" String="Appraisals Email"
+    Type="1" UniqueID="z_mnu_hr_AppraisalEmail">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="2" String="Self Appraisals"
+      Type="1" UniqueID="z_mnu_hr_SelfApp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="3" String="First Level Approval"
+    Type="1" UniqueID="z_mnu_hr_MgrApp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="4" String="Second Level Approval"
+   Type="1" UniqueID="z_mnu_hr_SMgr_App">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="5" String="HR Acceptance"
+    Type="1" UniqueID="z_mnu_hr_HRApp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TraAppraisal" Image="" Position="6" String="HR Grievance Acceptance"
+    Type="1" UniqueID="z_mnu_hr_GAcceptance">	</Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="3" String="Training"
+				Type="2" UniqueID="Z_mnu_HR_EmpTraining">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="0" String="Course Review"
+				Type="1" UniqueID="Z_mnu_HR_CourseRev">	</Menu>-->
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="0" String="Training Request"
+       Type="2" UniqueID="Z_mnu_HR_EmpTraining1">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining1" Image="" Position="0" String="Apply Scheduled Training"
+      Type="1" UniqueID="mnu_HR_SheduleTrain">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining1" Image="" Position="1" String="Training Request Approval"
+ Type="1" UniqueID="Z_mnu_HR_MgrRegTrainApp">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining1" Image="" Position="1" String="HR Training Request Approval"
+   Type="1" UniqueID="Z_mnu_HR_HRRegTrainApp">	</Menu>-->
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="1" String="Training Registration and Approval"
+      Type="1" UniqueID="Z_mnu_HR_TrainingReg">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="2" String="Training Evaluation"
+ Type="1" UniqueID="Z_mnu_HR_TraEva">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="3" String="Manager Evaluation Review"
+ Type="1" UniqueID="Z_mnu_HR_MgrEva">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="4" String="Training Process Overview"
+    Type="1" UniqueID="Z_mnu_HR_AppAttendees">	</Menu>
+      
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpTraining" Image="" Position="5" String="New Training Requests"
+            Type="2" UniqueID="Z_mnu_HR_EmpNewTraining">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpNewTraining" Image="" Position="0" String="New Training Request Approval"
+ Type="1" UniqueID="Z_mnu_HR_MgrTrainApp">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpNewTraining" Image="" Position="1" String="HR New Training Request Approval"
+   Type="1" UniqueID="Z_mnu_HR_HRTrainApp">	</Menu>-->
+
+
+       <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="5" String="Recruitment"
+     Type="2" UniqueID="Z_mnu_HR_Recruitment">	</Menu>
+      
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="0" String="Manpower Request"
+        Type="2" UniqueID="Z_mnu_HR_Recruitment1">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment1" Image="" Position="0" String="Recruitment"
+				Type="1" UniqueID="Z_mnu_HR_MPRequest">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment1" Image="" Position="1" String="Recruitment Approval"
+         Type="1" UniqueID="Z_mnu_HR_MPHrApproval">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment1" Image="" Position="2" String="Recruitment HR Approval"
+				Type="1" UniqueID="Z_mnu_HR_MPGMApproval">	</Menu>-->
+
+
+     
+
+    
+   
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="1" String="Applicants Profile"
+      Type="1" UniqueID="Z_mnu_HR_CrApplicants">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="2" String="Screening Process"
+      Type="1" UniqueID="Z_mnu_HR_Search">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="3" String="ShortListing Process"
+          Type="2" UniqueID="Z_mnu_HR_ASCandidates">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_ASCandidates" Image="" Position="0" String="Shortlisting Approval"
+          Type="1" UniqueID="Z_mnu_HR_ASLMApproval">	</Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_ASCandidates" Image="" Position="1" String="Shortlistng Second Level Approval"
+       Type="1" UniqueID="Z_mnu_HR_ASSMApproval">	</Menu>-->
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="4" String="Interview Process"
+           Type="2" UniqueID="Z_mnu_HR_IPApprovals"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_IPApprovals" Image="" Position="0" String="Interview Scheduling"
+         Type="1" UniqueID="Z_mnu_HR_IPLM"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_IPApprovals" Image="" Position="1" String="Interview Summary"
+         Type="1" UniqueID="Z_mnu_HR_IPLMU"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_IPApprovals" Image="" Position="2" String="Final Candidate Approval"
+       Type="1" UniqueID="Z_mnu_HR_IPHOD"> </Menu>
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_IPApprovals" Image="" Position="3" String="Final Candidate HR Approval"
+         Type="1" UniqueID="Z_mnu_HR_IPHR"> </Menu>-->
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="5" String="Employment Offer"
+       Type="1" UniqueID="Z_mnu_HR_IPOA"> </Menu>     
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="7" String="Hiring Process"
+      Type="1" UniqueID="Z_mnu_HR_Hiring">	</Menu>
+        
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="8" String="Recruitment Overview"
+      Type="1" UniqueID="Z_mnu_HR_RecOverview"> </Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Recruitment" Image="" Position="9" String="Recruitment Closing"
+      Type="1" UniqueID="Z_mnu_HR_RecClosing"> </Menu>
+
+      <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="6" String="Employee Life Cycle"
+      Type="2" UniqueID="Z_mnu_HR_EmpLifeCycle">	</Menu>
+
+      <!--<Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="1" String=" Employee Transfer"
+       Type="1" UniqueID="Z_mnu_HR_PlaTransfer">	</Menu>-->
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="1" String="Employee Promotion"
+       Type="1" UniqueID="Z_mnu_HR_Promotion">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="2" String="Position Change"
+       Type="1" UniqueID="Z_mnu_HR_PosChange">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="3" String="Employee Promotion Approval"
+      Type="1" UniqueID="Z_mnu_HR_EmpLifeApp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="4" String="Employee Position Change Approval"
+      Type="1" UniqueID="Z_mnu_HR_EmpLifePosCh">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="5" String="Employee Life Cycle posting"            
+      Type="1" UniqueID="Z_mnu_HR_EmpLifePost">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="6" String="Update Payroll Details"
+     Type="1" UniqueID="Z_mnu_HR_UpdatePayroll">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpLifeCycle" Image="" Position="7" String="Employee Exit"
+      Type="2" UniqueID="Z_mnu_HR_EmpExitForm">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpExitForm" Image="" Position="0" String="Exit Form Initialization"
+ Type="1" UniqueID="Z_mnu_HR_ExitFormIni">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpExitForm" Image="" Position="1" String="Exit Form Process"
+Type="1" UniqueID="Z_mnu_HR_ExitFormPro">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_EmpExitForm" Image="" Position="2" String="Exit Interview Form"
+Type="1" UniqueID="Z_mnu_HR_ExitInvForm">	</Menu>
+
+    
+      
+
+      <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="7" String="Travel Management"
+ Type="2" UniqueID="Z_mnu_HR_TravelMgnt">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="0" String="Travel Request"
+				Type="1" UniqueID="Z_mnu_HR_TraRequest">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="1" String="Travel Approval"
+       Type="1" UniqueID="Z_mnu_HR_TraApproval">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="2" String="Expenses Claim"
+       Type="1" UniqueID="Z_mnu_HR_ExpClaim">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="3" String="Expenses Claim Approval"
+       Type="1" UniqueID="Z_mnu_HR_ExpApproval">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="4" String="Travel Overview"
+     Type="1" UniqueID="Z_mnu_HR_TraOverview">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="5" String="Expenses Overview"
+       Type="1" UniqueID="Z_mnu_HR_ExpOverview">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_TravelMgnt" Image="" Position="6" String="Expenses Posting"
+     Type="1" UniqueID="Z_mnu_HR_ExpPosting">	</Menu>
+
+
+      <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="8" String="Leave Transaction"
+ Type="2" UniqueID="mnu_HR_LveTrans">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="mnu_HR_LveTrans" Image="" Position="0" String="Leave Request"
+				Type="1" UniqueID="mnu_HR_LveRequest">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="mnu_HR_LveTrans" Image="" Position="1" String="Leave Approval"
+       Type="1" UniqueID="mnu_HR_LveApproval">	</Menu>
+
+
+
+    </action>
+  </Menus>
+</Application>
