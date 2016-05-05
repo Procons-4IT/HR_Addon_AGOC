@@ -60,11 +60,22 @@ Public Module modVariables
         LveReq
         BankTime
     End Enum
+    '2013-07-12
+    Public Const frm_hr_LExpenses As String = "frm_hr_LExpenses"
+    Public Const mnu_hr_LExpenses As String = "z_mnu_hr_LExpenses"
+    Public Const xml_hr_LExpenses As String = "frm_hr_LExpenses.xml"
+
+    Public Const mnu_hr_AppGrade As String = "mnu_hr_AppGrade"
+    Public Const frm_hr_AppGrade As String = "frm_hr_AppGrade"
+    Public Const xml_AppGrade As String = "frm_hr_AppGrade.xml"
+
     Public Const mnu_ReplaceAuthorizer As String = "mnu_hr_AppRTemp"
     Public Const frm_ReplaceAuthorizer As String = "frm_hr_AppRTemp"
     Public Const xml_ReplaceAuthorizer As String = "frm_hr_AppRTemp.xml"
 
-
+    Public Const mnu_TemplateSearch As String = "mnu_Hr_SearchApp"
+    Public Const frm_TemplateSearch As String = "frm_App_Search"
+    Public Const xml_TemplateSearch As String = "xml_App_Search.xml"
 
     Public Const frm_hr_EmpAllOffer As String = "frm_hr_EmpAllOffer"
     Public Const xml_EmpAllOffer As String = "frm_hr_EmpAllOffer.xml"

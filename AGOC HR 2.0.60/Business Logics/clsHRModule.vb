@@ -1981,7 +1981,8 @@ Public Class clsHRModule
             strSQL1 = "select ' ' 'Code',' ' 'Name', U_Z_CompCode,U_Z_CompDesc,U_Z_Weight,U_Z_CompLevel  from [@Z_HR_POSCO1] T0 inner join [@Z_HR_OPOSCO] T1 on T1.DocEntry=T0.DocEntry "
             strSQL1 = strSQL1 & " where T1.U_Z_PosCode='" & intJobCode & "'"
             otemp.DoQuery(strSQL1)
-            oRectemp.DoQuery("Update [@Z_HR_ECOLVL] set Name=Name +'_XD' where isnull(U_Z_PosCode,'') <>'" & Poscode & "'")
+            ' oRectemp.DoQuery("Update [@Z_HR_ECOLVL] set Name=Name +'_XD' where isnull(U_Z_PosCode,'') <>'" & Poscode & "'")
+            oRectemp.DoQuery("Update [@Z_HR_ECOLVL] set Name=Name +'_XD' where U_Z_HREmpID='" & aEmpID & "' and isnull(U_Z_PosCode,'') <>'" & Poscode & "'")
 
             For intRow As Integer = 0 To otemp.RecordCount - 1
                 oRectemp.DoQuery("Select * from [@Z_HR_ECOLVL] where Name not like '%_XD' and  U_Z_HREmpID='" & aEmpID & "' and U_Z_CompCode='" & otemp.Fields.Item("U_Z_CompCode").Value & "'")

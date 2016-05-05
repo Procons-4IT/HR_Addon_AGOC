@@ -3333,7 +3333,7 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_OSEAPP", "Z_LStrt", "Level start From", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
 
 
-            addField("@Z_HR_OSEAPP", "Z_Status", "Approval Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "D,F,S,L,C", "Draft,Approved,2nd Level Approval,Closed,Canceled", "D")
+            addField("@Z_HR_OSEAPP", "Z_Status", "Approval Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "D,F,S,L,C", "Draft,Approved,2nd Level Approval,Closed,HR Canceled", "D")
 
             AddFields("Z_HR_OSEAPP", "Z_BSelfRemark", "Business Self Remarks", SAPbobsCOM.BoFieldTypes.db_Memo)
             AddFields("Z_HR_OSEAPP", "Z_BMgrRemark", "Business Manager Remarks", SAPbobsCOM.BoFieldTypes.db_Memo)
@@ -3357,6 +3357,15 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_SEAPP1", "Z_BussMgrRate", "Business Manager Rating", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Rate)
             AddFields("Z_HR_SEAPP1", "Z_BussSMRate", "Business Sr.Manager Rating", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Rate)
 
+            AddFields("Z_HR_SEAPP1", "Z_BussSelfGrade", "Business Self Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP1", "Z_BussMgrGrade", "Business Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP1", "Z_BussSMGrade", "Business Sr.Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+
+            AddFields("Z_HR_SEAPP1", "Z_BusSelfTotGrade", "Business Self Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP1", "Z_BusMgrTotGrade", "Business Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP1", "Z_BusSMTotGrade", "Business Sr.Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+
+
             AddFields("Z_HR_SEAPP1", "Z_SelfRaCode", "Self Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
             AddFields("Z_HR_SEAPP1", "Z_MgrRaCode", " Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
             AddFields("Z_HR_SEAPP1", "Z_SMRaCode", " Sr.Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
@@ -3373,6 +3382,13 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_SEAPP2", "Z_MgrRaCode", " Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
             AddFields("Z_HR_SEAPP2", "Z_SMRaCode", " Sr.Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
 
+            AddFields("Z_HR_SEAPP2", "Z_PeoSelfGrade", "People Self Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP2", "Z_PeoMgrGrade", "People Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP2", "Z_PeoSMGrade", "People Sr,Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+
+            AddFields("Z_HR_SEAPP2", "Z_PeoSelfTotGrade", "People Self Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP2", "Z_PeoMgrTotGrade", "People Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP2", "Z_PeoSMTotGrade", "People Sr.Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
 
 
             AddFields("Z_HR_SEAPP3", "Z_CompCode", "Self Comp.Objective Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
@@ -3389,9 +3405,20 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_SEAPP3", "Z_MgrRaCode", " Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
             AddFields("Z_HR_SEAPP3", "Z_SMRaCode", " Sr.Manager Rating Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
 
+            AddFields("Z_HR_SEAPP3", "Z_CompSelfGrade", "Competence Self Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP3", "Z_CompMgrGrade", "Competence Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP3", "Z_CompSMGrade", "Competence Sr.Manager Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+
+            AddFields("Z_HR_SEAPP3", "Z_CoSelfTotGrade", "Comp. Self Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP3", "Z_CoMgrTotGrade", "Comp. Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP3", "Z_CoSMTotGrade", "Comp. Sr.Mgr Total Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+
+
             AddFields("Z_HR_SEAPP4", "Z_CompType", "Self Comp.Objective Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
             AddFields("Z_HR_SEAPP4", "Z_AvgComp", "Avg Competence Rating", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Rate)
             AddFields("Z_HR_SEAPP4", "Z_HRComp", "Competence HR Rating", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Rate)
+            AddFields("Z_HR_SEAPP4", "Z_AvgCompgrd", "Avg.Competence Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
+            AddFields("Z_HR_SEAPP4", "Z_HrcompGrade", "HR Competence Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 10)
 
             AddTables("Z_HR_OPOSIN", "Position Mapping", SAPbobsCOM.BoUTBTableType.bott_Document)
             AddFields("Z_HR_OPOSIN", "Z_PosCode", "Position Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
@@ -3564,7 +3591,7 @@ Public NotInheritable Class clsTable
 
             AddFields("Z_HR_OSEAPP", "Z_FDate", "From Date", SAPbobsCOM.BoFieldTypes.db_Date)
             AddFields("Z_HR_OSEAPP", "Z_TDate", "To Date", SAPbobsCOM.BoFieldTypes.db_Date)
-            addField("@Z_HR_OSEAPP", "Z_WStatus", "Workflow Ststus", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "SE,LM,SM,HR,DR", "SelfApproved,LineManager Approved,Sr.Manager Approved,HR Approved,Draft", "DR")
+            addField("@Z_HR_OSEAPP", "Z_WStatus", "Workflow Ststus", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "SE,LM,SM,HR,DR,C", "SelfApproved,LineManager Approved,Sr.Manager Approved,HR Approved,Draft,HR Canceled", "DR")
             addField("@Z_HR_OSEAPP", "Z_Status", "Approval Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "D,F,S,L,C", "Draft,Approved,2nd Level Approval,Closed,Canceled", "D")
             addField("@Z_HR_OSEAPP", "Z_GStatus", "Grevence Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "-,A,G", "-,Accepted,Grevence", "-")
             AddFields("Z_HR_OSEAPP", "Z_GDate", "Grevence Date", SAPbobsCOM.BoFieldTypes.db_Date)
@@ -4274,7 +4301,6 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_EXPCL", "Z_TraCode", "Travel Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
             AddFields("Z_HR_EXPCL", "Z_TraDesc", "Travel Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
             addField("@Z_HR_EXPCL", "Z_TripType", "Travel Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "E,N", "Existing,New", "E")
-
             AddFields("Z_HR_EXPCL", "Z_Attachment", "Attachments", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
 
             AddTables("Z_HR_PAYMD", "Payment Method Master", SAPbobsCOM.BoUTBTableType.bott_NoObject)
@@ -4382,6 +4408,8 @@ Public NotInheritable Class clsTable
             AddFields("Z_HR_OAPPT", "Z_Active", "Active Template", SAPbobsCOM.BoFieldTypes.db_Alpha, , 1)
             AddFields("Z_HR_OAPPT", "Z_LveType", "Leave Type", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
             AddFields("Z_HR_OAPPT", "Z_LveDesc", "Leave Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
+            AddFields("Z_HR_OAPPT", "Z_CompCode", "Company Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_OAPPT", "Z_CompDesc", "Company Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
             AddFields("OHEM", "Z_EmpID", "T&A Employee Id", SAPbobsCOM.BoFieldTypes.db_Alpha, , 30)
 
             AddFields("Z_HR_EXPCL", "Z_Month", "Month", SAPbobsCOM.BoFieldTypes.db_Numeric)
@@ -4696,7 +4724,96 @@ Public NotInheritable Class clsTable
 
             AddTables("Z_HR_RAUT1", "Replace Authorizer Lines", SAPbobsCOM.BoUTBTableType.bott_DocumentLines)
             AddFields("Z_HR_RAUT1", "Z_TransType", "Transaction Type", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
+            AddFields("Z_HR_RAUT1", "Z_TempID", "Template ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 5)
+            AddFields("Z_HR_RAUT1", "Z_TempName", "Template Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
             addField("@Z_HR_RAUT1", "Z_Active", "Active", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+
+
+            AddFields("Z_HR_ORMPREQ", "Z_CurApprover1", "Final Current Approver", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_ORMPREQ", "Z_NxtApprover1", "Final Next Approver", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+
+            AddTables("Z_HR_APPGRE", "Appraisal Grade Master", SAPbobsCOM.BoUTBTableType.bott_NoObject)
+            AddFields("Z_HR_APPGRE", "Z_Code", "Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_APPGRE", "Z_Desc", "Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
+            AddFields("Z_HR_APPGRE", "Z_Ratefrom", "Rating From", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_HR_APPGRE", "Z_RateTo", "Rating To", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_HR_APPGRE", "Z_Grade", "Appraisal Grade", SAPbobsCOM.BoFieldTypes.db_Alpha, , 3)
+
+            AddTables("Z_HR_LEXPANCES", "Loannee Expences Master", SAPbobsCOM.BoUTBTableType.bott_MasterData)
+            AddFields("Z_HR_LEXPANCES", "Z_ExpName", "Expences Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
+            AddFields("Z_HR_LEXPANCES", "Z_ActCode", "Credit G/L Account Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            addField("@Z_HR_LEXPANCES", "Z_Status", "Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+            AddFields("Z_HR_LEXPANCES", "Z_AlloCode", "Allowance Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPANCES", "Z_DebitCode", "Debit G/L Account Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            addField("@Z_HR_LEXPANCES", "Z_Posting", "Posting To(Payroll/GL)", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "P,G", "Payroll,GL Account", "P")
+            AddFields("Z_HR_LEXPANCES", "Z_Currency", "Default Currency", SAPbobsCOM.BoFieldTypes.db_Alpha, , 3)
+            AddFields("Z_HR_LEXPANCES", "Z_Amount", "Expenses Amount", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            addField("@Z_HR_LEXPANCES", "Z_OverLap", "Expenses Overlap", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
+            addField("@Z_HR_LEXPANCES", "Z_ExpType", "Expenses Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "F,V", "Fixed,Variable", "F")
+            addField("@Z_HR_LEXPANCES", "Z_Perdim", "Expenses Perdim", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "I,P", "Individual,Period", "I")
+            addField("@Z_HR_LEXPANCES", "Z_WeekEnd", "Holiday Validation Required", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+            'StrSQL ="Select isnull(U_Z_WeekEnd,'N') from ""@Z_HR_LEXPANCES"" where ""U_Z_ExpName""
+            ''Lonee Expenses Claim Request
+
+            AddTables("Z_HR_LEXPCL", "Lonee Expenses Claim Request", SAPbobsCOM.BoUTBTableType.bott_NoObject)
+            AddFields("Z_HR_LEXPCL", "Z_EmpID", "Request Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
+            AddFields("Z_HR_LEXPCL", "Z_EmpName", "Request Employee Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_Subdt", "Submitted Date", SAPbobsCOM.BoFieldTypes.db_Date)
+            AddFields("Z_HR_LEXPCL", "Z_Client", "Client Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_Project", "Project Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_Claimdt", "Claim Date", SAPbobsCOM.BoFieldTypes.db_Date)
+            AddFields("Z_HR_LEXPCL", "Z_City", "City", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
+            AddFields("Z_HR_LEXPCL", "Z_Currency", "Currency", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_CurAmt", "Currency Amount", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_HR_LEXPCL", "Z_ExcRate", "Exchange Rate", SAPbobsCOM.BoFieldTypes.db_Float, , , SAPbobsCOM.BoFldSubTypes.st_Sum)
+            AddFields("Z_HR_LEXPCL", "Z_UsdAmt", "US Dollar Amount", SAPbobsCOM.BoFieldTypes.db_Alpha, , 50)
+            addField("@Z_HR_LEXPCL", "Z_Reimburse", "To be Reimbursed", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
+            AddFields("Z_HR_LEXPCL", "Z_ReimAmt", "Reimbursed Amount", SAPbobsCOM.BoFieldTypes.db_Alpha, , 50)
+            AddFields("Z_HR_LEXPCL", "Z_ExpCode", "Expenses Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_ExpType", "Expenses type", SAPbobsCOM.BoFieldTypes.db_Alpha, , 100)
+            AddFields("Z_HR_LEXPCL", "Z_PayMethod", "Payment Method", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_Notes", "Note", SAPbobsCOM.BoFieldTypes.db_Memo)
+            AddFields("Z_HR_LEXPCL", "Z_ApproveBy", "Approved By", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_Approvedt", "Approver Date", SAPbobsCOM.BoFieldTypes.db_Date)
+            addField("@Z_HR_LEXPCL", "Z_AppStatus", "Approved Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "P,R,A", "Pending,Rejected,Approved", "P")
+            AddFields("Z_HR_LEXPCL", "Z_TraCode", "Travel Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_TraDesc", "Travel Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            addField("@Z_HR_LEXPCL", "Z_TripType", "Travel Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "E,N", "Existing,New", "E")
+            AddFields("Z_HR_LEXPCL", "Z_Attachment", "Attachments", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_Month", "Month", SAPbobsCOM.BoFieldTypes.db_Numeric)
+            AddFields("Z_HR_LEXPCL", "Z_Year", "Year", SAPbobsCOM.BoFieldTypes.db_Numeric)
+            AddFields("Z_HR_LEXPCL", "Z_AlloCode", "Allowance Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            addField("@Z_HR_LEXPCL", "Z_PayPosted", "Posted to Payroll", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "N")
+            AddFields("Z_HR_LEXPCL", "Z_CurApprover", "Current Approver", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_NxtApprover", "Next Approver", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            addField("@Z_HR_LEXPCL", "Z_AppRequired", "Approval Required", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "Y,N", "Yes,No", "Y")
+            AddFields("Z_HR_LEXPCL", "Z_AppReqDate", "Required Date", SAPbobsCOM.BoFieldTypes.db_Date)
+            AddFields("Z_HR_LEXPCL", "Z_ReqTime", "Required Time", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_RejRemark", "Rejection Remarks", SAPbobsCOM.BoFieldTypes.db_Memo)
+            AddFields("Z_HR_LEXPCL", "Z_ApproveId", "Approve Template Id", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_DocRefNo", "Claim Doc.Ref No", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_DebitCode", "Debit G/L Account Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_CreditCode", "Credit G/L Account Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_Posting", "Posting To(Payroll/GL)", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_CardCode", "Business Partner Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_Dimension", "Employee Dimension", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_JVNo", "Journel Voucher Number", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LEXPCL", "Z_CrEmpID", "Created Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 30)
+            AddFields("Z_HR_LEXPCL", "Z_CrEmpName", "Created Employee Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LEXPCL", "Z_OverLap", "Expense Overlap", SAPbobsCOM.BoFieldTypes.db_Alpha, , 50)
+
+            AddTables("Z_HR_LOEXPCL", "Lonee Expenses Claim Header", SAPbobsCOM.BoUTBTableType.bott_NoObject)
+            AddFields("Z_HR_LOEXPCL", "Z_EmpID", "Request Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
+            AddFields("Z_HR_LOEXPCL", "Z_EmpName", "Request Employee Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LOEXPCL", "Z_Subdt", "Submitted Date", SAPbobsCOM.BoFieldTypes.db_Date)
+            AddFields("Z_HR_LOEXPCL", "Z_Client", "Client Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LOEXPCL", "Z_Project", "Project Name", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            AddFields("Z_HR_LOEXPCL", "Z_TAEmpID", "Request T&A Employee ID", SAPbobsCOM.BoFieldTypes.db_Alpha, , 20)
+            AddFields("Z_HR_LOEXPCL", "Z_CardCode", "Business Partner Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LOEXPCL", "Z_TraCode", "Travel Code", SAPbobsCOM.BoFieldTypes.db_Alpha, , 40)
+            AddFields("Z_HR_LOEXPCL", "Z_TraDesc", "Travel Description", SAPbobsCOM.BoFieldTypes.db_Alpha, , 200)
+            addField("@Z_HR_LOEXPCL", "Z_TripType", "Travel Type", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "E,N", "With Travel,Without Travel", "E")
+            addField("@Z_HR_LOEXPCL", "Z_DocStatus", "Document Status", SAPbobsCOM.BoFieldTypes.db_Alpha, 1, SAPbobsCOM.BoFldSubTypes.st_Address, "O,C", "Opened,Closed", "O")
 
 
             CreateUDO()
@@ -4780,6 +4897,10 @@ Public NotInheritable Class clsTable
 
 
             AddUDO("Z_HR_RAUT", "Replace_Authorizer", "Z_HR_RAUT", "DocNum", "U_Z_CurAut", "Z_HR_RAUT1", , , , , , SAPbobsCOM.BoUDOObjType.boud_Document)
+
+            UDOExpances("Z_HR_LEXPANCES", "Loanee_Expences - Master", "Z_HR_LEXPANCES", 1, "U_Z_ExpName")
+
+
         Catch ex As Exception
             Throw ex
         End Try

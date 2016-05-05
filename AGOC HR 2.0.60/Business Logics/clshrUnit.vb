@@ -292,10 +292,12 @@ Public Class clshrUnit
                             Dim strVal As String
                             oForm = oApplication.SBO_Application.Forms.Item(FormUID)
                             objMatrix = oForm.Items.Item("3").Specific
-                            strVal = oApplication.Utilities.getMatrixValues(objMatrix, "V_0", pVal.Row)
-                            If oApplication.Utilities.ValidateCode(strVal, "UNIT") = True Then
-                                BubbleEvent = False
-                                Exit Sub
+                            If oApplication.Utilities.getMatrixValues(objMatrix, "V_13", pVal.Row) <> "" Then
+                                strVal = oApplication.Utilities.getMatrixValues(objMatrix, "V_0", pVal.Row)
+                                If oApplication.Utilities.ValidateCode(strVal, "UNIT") = True Then
+                                    BubbleEvent = False
+                                    Exit Sub
+                                End If
                             End If
                         End If
                         Select Case pVal.EventType
@@ -329,6 +331,7 @@ Public Class clshrUnit
                             objForm = oForm
                             objMatrix = objForm.Items.Item("3").Specific
                             objMatrix.AddRow()
+                            objMatrix.ClearRowData(objMatrix.RowCount)
                             objMatrix.Columns.Item(0).Cells.Item(objMatrix.RowCount).Specific.value = objMatrix.RowCount
                             objMatrix.Columns.Item("V_0").Cells.Item(objMatrix.RowCount).Specific.value = ""
                             objMatrix.Columns.Item("V_1").Cells.Item(objMatrix.RowCount).Specific.value = ""

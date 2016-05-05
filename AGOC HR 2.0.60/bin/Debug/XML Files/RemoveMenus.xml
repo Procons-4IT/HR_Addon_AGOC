@@ -74,6 +74,7 @@
       <Menu UniqueID="Z_mnu_HR_Trainner"></Menu>
       <Menu UniqueID="Z_mnu_HR_Travel"></Menu>
       <Menu UniqueID="z_mnu_hr_Expenses"></Menu>
+      <Menu UniqueID="z_mnu_hr_LExpenses"></Menu>
       <Menu UniqueID="z_mnu_hr_TraAgenda"></Menu>
 
       <Menu UniqueID="mnu_HR_Approve"></Menu>

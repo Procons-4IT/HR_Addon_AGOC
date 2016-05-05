@@ -436,6 +436,13 @@ Public Class clshrEmpTraining
                 'End If
 
                 otemp2 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                dtFromDate = oGrid.DataTable.GetValue("U_Z_Startdt", intRow)
+                dtTodate = oGrid.DataTable.GetValue("U_Z_Enddt", intRow)
+                If oApplication.Utilities.expenceclaimValidations(strEmpId, "Traning", dtFromDate, dtTodate) <> "" Then
+                    Return False
+                End If
+
+                otemp2 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                 dtFromDate = oGrid.DataTable.GetValue("U_Z_AppStdt", intRow)
                 dtTodate = oGrid.DataTable.GetValue("U_Z_AppEnddt", intRow)
                 strqry = "Select * from [@Z_HR_OTRIN] where '" & dt.ToString("yyyy-MM-dd") & "' between '" & dtFromDate.ToString("yyyy-MM-dd") & "' and '" & dtTodate.ToString("yyyy-MM-dd") & "'"

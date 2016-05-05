@@ -123,8 +123,19 @@ Public Class clsListener
             If pVal.BeforeAction = False Then
                 Select Case pVal.MenuUID
 
+                    Case mnu_hr_LExpenses
+                        oMenuObject = New clshrLoaneeExpenses
+                        oMenuObject.MenuEvent(pVal, BubbleEvent)
+                    Case mnu_hr_AppGrade
+                        oMenuObject = New clshrAppraisalGrade
+                        oMenuObject.MenuEvent(pVal, BubbleEvent)
+
                     Case mnu_ReplaceAuthorizer
                         oMenuObject = New clsAuthroizerReplacement
+                        oMenuObject.MenuEvent(pVal, BubbleEvent)
+
+                    Case mnu_TemplateSearch
+                        oMenuObject = New clsApprovalTemplateSearch
                         oMenuObject.MenuEvent(pVal, BubbleEvent)
                     Case mnu_ExpClaimPost
                         oMenuObject = New clshrExpClaimPosting
@@ -578,6 +589,19 @@ Public Class clsListener
                 Select Case pVal.FormTypeEx
 
 
+                    Case frm_hr_LExpenses
+                        If Not _Collection.ContainsKey(FormUID) Then
+                            oItemObject = New clshrLoaneeExpenses
+                            oItemObject.FrmUID = FormUID
+                            _Collection.Add(FormUID, oItemObject)
+                        End If
+                    Case frm_hr_AppGrade
+                        If Not _Collection.ContainsKey(FormUID) Then
+                            oItemObject = New clshrAppraisalGrade
+                            oItemObject.FrmUID = FormUID
+                            _Collection.Add(FormUID, oItemObject)
+                        End If
+
                     Case frm_ReplaceAuthorizer
                         If Not _Collection.ContainsKey(FormUID) Then
                             oItemObject = New clsAuthroizerReplacement
@@ -585,7 +609,12 @@ Public Class clsListener
                             _Collection.Add(FormUID, oItemObject)
                         End If
 
-
+                    Case frm_TemplateSearch
+                        If Not _Collection.ContainsKey(FormUID) Then
+                            oItemObject = New clsApprovalTemplateSearch
+                            oItemObject.FrmUID = FormUID
+                            _Collection.Add(FormUID, oItemObject)
+                        End If
 
                     Case frm_hr_EmpAllOffer
                         If Not _Collection.ContainsKey(FormUID) Then

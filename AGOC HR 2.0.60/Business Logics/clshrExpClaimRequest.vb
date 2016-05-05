@@ -979,13 +979,17 @@ Public Class clshrExpClaimRequest
                     If Ovarlap.Trim() = "Y" Then
                         Dim oRec As SAPbobsCOM.Recordset
                         oRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-                        Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & oApplication.Utilities.getEdittextvalue(sForm, "15") & "' and U_Z_AppStatus='A' and '" & strfromdt.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
-                        oRec.DoQuery(StrQuery)
-                        If oRec.RecordCount > 0 Then
-                            oApplication.Utilities.Message("You have an approved BTA for this date, you cannot proceed with another expense claim. Expense Type : " & Exptype & "..", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        If oApplication.Utilities.expenceclaimValidations(oApplication.Utilities.getEdittextvalue(sForm, "15"), "Exp", strfromdt, strfromdt, oGrid.DataTable.GetValue("U_Z_ExpType", intRow)) <> "" Then
                             oGrid.Columns.Item("U_Z_ExpType").Click(intRow)
                             Return False
                         End If
+                        'Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & oApplication.Utilities.getEdittextvalue(sForm, "15") & "' and U_Z_AppStatus='A' and '" & strfromdt.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+                        'oRec.DoQuery(StrQuery)
+                        'If oRec.RecordCount > 0 Then
+                        '    oApplication.Utilities.Message("You have an approved BTA for this date, you cannot proceed with another expense claim. Expense Type : " & Exptype & "..", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        '    oGrid.Columns.Item("U_Z_ExpType").Click(intRow)
+                        '    Return False
+                        'End If
                     End If
                 Next
             End If

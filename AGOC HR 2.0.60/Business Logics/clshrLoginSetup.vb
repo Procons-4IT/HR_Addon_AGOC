@@ -42,6 +42,7 @@
         oColumn.ValidValues.Add("ExpCli", "Expense Claim")
         oColumn.ValidValues.Add("LveReq", "Leave Request")
         oColumn.ValidValues.Add("LoanReq", "Loan Request")
+        oColumn.ValidValues.Add("Loanee", "Loanee Expense Request")
         oColumn.DisplayDesc = True
         oForm.Items.Item("28").TextStyle = SAPbouiCOM.BoTextStyle.ts_BOLD
         oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE

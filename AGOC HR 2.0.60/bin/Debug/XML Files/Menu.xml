@@ -127,6 +127,8 @@ Type="1" UniqueID="z_mnu_hr_ExitRes">	</Menu>
      Type="1" UniqueID="z_mnu_hr_BussObj">	</Menu>
       <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="6" String="Department Business Objectives Mapping"
     Type="1" UniqueID="z_mnu_hr_DeptMapp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Appraisal" Image="" Position="7" String="Appraisal Grade Setup"
+  Type="1" UniqueID="mnu_hr_AppGrade">	</Menu>
 
 
       <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="4" String="Training"
@@ -164,6 +166,9 @@ Type="1" UniqueID="z_mnu_hr_ExitRes">	</Menu>
       <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Travel" Image="" Position="2" String="Travel Agenda - Setup"
       Type="1" UniqueID="z_mnu_hr_TraAgenda">	</Menu>
 
+      <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Travel" Image="" Position="3" String="Loanee Expenses Master"
+    Type="1" UniqueID="z_mnu_hr_LExpenses">	</Menu>
+
        <Menu Checked="0" Enabled="1" FatherUID="Z_mnu_HR_Setup" Image="" Position="6" String="Approval Template"
       Type="2" UniqueID="mnu_HR_Approve">	</Menu>
       <!--<Menu Checked="0" Enabled="1" FatherUID="mnu_HR_Approve" Image="" Position="0" String="Document Type"
@@ -172,6 +177,8 @@ Type="1" UniqueID="z_mnu_hr_ExitRes">	</Menu>
      Type="1" UniqueID="mnu_hr_AppTemp">	</Menu>
       <Menu Checked="0" Enabled="1" FatherUID="mnu_HR_Approve" Image="" Position="1" String="Replacing Authorizer "
   Type="1" UniqueID="mnu_hr_AppRTemp">	</Menu>
+      <Menu Checked="0" Enabled="1" FatherUID="mnu_HR_Approve" Image="" Position="2" String="Search "
+  Type="1" UniqueID="mnu_Hr_SearchApp">	</Menu>
 
      
       <Menu Checked="0" Enabled="1" FatherUID="43544" Image="" Position="2" String="Appraisal"

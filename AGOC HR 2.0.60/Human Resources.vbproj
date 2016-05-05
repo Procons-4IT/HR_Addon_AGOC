@@ -57,9 +57,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Design, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Interop.Scripting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -107,6 +107,7 @@
       <DependentUpon>rptAppraisal.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Business Logics\clsApprovalTemplateSearch.vb" />
     <Compile Include="Business Logics\clsAppShortListedApproval.vb" />
     <Compile Include="Business Logics\clsAuthroizerReplacement.vb" />
     <Compile Include="Business Logics\clsBranchesMaster.vb" />
@@ -115,6 +116,7 @@
     <Compile Include="Business Logics\clsDisRule.vb" />
     <Compile Include="Business Logics\clshrAppHisDetails.vb" />
     <Compile Include="Business Logics\clshrAppraisalDistribution.vb" />
+    <Compile Include="Business Logics\clshrAppraisalGrade.vb" />
     <Compile Include="Business Logics\clshrAppraisalPeriod.vb" />
     <Compile Include="Business Logics\clshrApproval.vb" />
     <Compile Include="Business Logics\clshrApproveTemp.vb" />
@@ -247,6 +249,7 @@
     <Compile Include="Business Logics\clshrFApproval.vb" />
     <Compile Include="Business Logics\clshrHRecApproval.vb" />
     <Compile Include="Business Logics\clsHRDisRule.vb" />
+    <Compile Include="Business Logics\clshrLoaneeExpenses.vb" />
     <Compile Include="Business Logics\Custom_ChooseFromList.vb" />
     <Compile Include="Modules\modVariables.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -340,7 +343,11 @@
     <Content Include="bin\Debug\Appraisal.htm" />
     <Content Include="bin\Debug\Agenda.htm" />
     <Content Include="bin\Debug\XML Files\CFL.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LExpenses.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_DisRuleHR.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppGrade.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AppPeriod.xml" />
     <Content Include="bin\Debug\XML Files\frm_HR_BankTimeReq.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_BnkTmeApproval.xml" />
@@ -367,7 +374,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_HRecApproval.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_FApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_FApproval.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_AppDisMaster.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHOD.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHR.xml" />
@@ -400,7 +409,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_InterviewType.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_Allowance.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AppAttendees.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_Approval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Approval.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_AppShortListed.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AssExpenses.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AssignTraPlan.xml" />

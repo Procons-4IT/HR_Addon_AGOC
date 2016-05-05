@@ -1044,9 +1044,9 @@ Public Class clshrPosCompetence
     Public Sub FormDataEvent(ByRef BusinessObjectInfo As SAPbouiCOM.BusinessObjectInfo, ByRef BubbleEvent As Boolean)
         Try
             If BusinessObjectInfo.BeforeAction = False And BusinessObjectInfo.ActionSuccess = True And (BusinessObjectInfo.EventType = SAPbouiCOM.BoEventTypes.et_FORM_DATA_LOAD) Then
-                oForm = oApplication.SBO_Application.Forms.ActiveForm()
+                oForm = oApplication.SBO_Application.Forms.Item(BusinessObjectInfo.FormUID)
                 If oForm.TypeEx = frm_hr_PosComp Then
-                    oForm = oApplication.SBO_Application.Forms.ActiveForm()
+                    ' oForm = oApplication.SBO_Application.Forms.ActiveForm()
                     oForm.Items.Item("26").Enabled = False
                     oForm.Items.Item("7").Enabled = True
                     '  oForm.Items.Item("8").Enabled = False

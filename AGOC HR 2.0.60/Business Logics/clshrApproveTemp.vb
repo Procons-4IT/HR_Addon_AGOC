@@ -40,6 +40,7 @@ Public Class clshrApproveTemp
             enableControls(oForm, True)
             FillDocType(oForm)
             FillLeaveType(oForm)
+            FillPayrollCompany(oForm)
             oMatrix = oForm.Items.Item("9").Specific
             oMatrix.AutoResizeColumns()
             oMatrix = oForm.Items.Item("10").Specific
@@ -50,6 +51,44 @@ Public Class clshrApproveTemp
             oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
             oForm.Items.Item("22").Visible = False
             oForm.Items.Item("23").Visible = False
+            oForm.Freeze(False)
+        Catch ex As Exception
+            Throw ex
+        Finally
+            oForm.Freeze(False)
+        End Try
+    End Sub
+
+    Public Sub ViewForm(aCode As String)
+        Try
+
+            If oApplication.Utilities.validateAuthorization(oApplication.Company.UserSignature, frm_hr_ApproveTemp) = False Then
+                oApplication.Utilities.Message("You are not authorized to do this action", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                Exit Sub
+            End If
+            oForm = oApplication.Utilities.LoadForm(xml_hr_ApproveTemp, frm_hr_ApproveTemp)
+            oForm = oApplication.SBO_Application.Forms.ActiveForm()
+            oForm.Freeze(True)
+            'initialize(oForm)
+            enableControls(oForm, True)
+            FillDocType(oForm)
+            FillLeaveType(oForm)
+            FillPayrollCompany(oForm)
+            oMatrix = oForm.Items.Item("9").Specific
+            oMatrix.AutoResizeColumns()
+            oMatrix = oForm.Items.Item("10").Specific
+            oMatrix.AutoResizeColumns()
+            oForm.EnableMenu(mnu_ADD_ROW, True)
+            oForm.EnableMenu(mnu_DELETE_ROW, False)
+            oForm.Mode = SAPbouiCOM.BoFormMode.fm_FIND_MODE
+            oApplication.Utilities.setEdittextvalue(oForm, "4", aCode)
+
+            oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
+            oForm.Items.Item("22").Visible = False
+            oForm.Items.Item("23").Visible = False
+            oForm.Items.Item("27").Visible = False
+            oForm.Items.Item("28").Visible = False
+            oForm.Items.Item("1").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
             oForm.Freeze(False)
         Catch ex As Exception
             Throw ex
@@ -74,6 +113,7 @@ Public Class clshrApproveTemp
         oComboBox.ValidValues.Add("ExpCli", "Expenses Claim")
         oComboBox.ValidValues.Add("LveReq", "Leave Request")
         oComboBox.ValidValues.Add("LoanReq", "Loan Request")
+        oComboBox.ValidValues.Add("Loanee", "Loanee Expenses")
         oComboBox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
         aForm.Items.Item("17").DisplayDesc = True
         oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
@@ -92,6 +132,23 @@ Public Class clshrApproveTemp
             oSlpRS.MoveNext()
         Next
         sform.Items.Item("23").DisplayDesc = True
+        oComboBox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
+        oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
+    End Sub
+    Private Sub FillPayrollCompany(ByVal sform As SAPbouiCOM.Form)
+        Dim oSlpRS, oRecS As SAPbobsCOM.Recordset
+        oSlpRS = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        oComboBox = sform.Items.Item("28").Specific
+        oSlpRS.DoQuery("Select ""U_Z_CompCode"",""U_Z_CompName"" from ""@Z_OADM"" order by ""DocEntry""")
+        For intRow As Integer = oComboBox.ValidValues.Count - 1 To 0 Step -1
+            oComboBox.ValidValues.Remove(intRow, SAPbouiCOM.BoSearchKey.psk_Index)
+        Next
+        oComboBox.ValidValues.Add("", "")
+        For intRow As Integer = 0 To oSlpRS.RecordCount - 1
+            oComboBox.ValidValues.Add(oSlpRS.Fields.Item(0).Value, oSlpRS.Fields.Item(1).Value)
+            oSlpRS.MoveNext()
+        Next
+        sform.Items.Item("28").DisplayDesc = True
         oComboBox.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
         oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
     End Sub
@@ -134,6 +191,7 @@ Public Class clshrApproveTemp
                                             ElseIf strDocType = "LveReq" Then
                                                 ' oForm.PaneLevel = 1
                                             ElseIf strDocType = "LoanReq" Then
+                                            ElseIf strDocType = "Loanee" Then
                                             Else
                                                 oApplication.Utilities.Message("Employees not applicable for this document type.", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                                                 BubbleEvent = False
@@ -159,6 +217,13 @@ Public Class clshrApproveTemp
                                     oComboBox = oForm.Items.Item("17").Specific
                                     If oComboBox.Selected.Value = "LveReq" Then
                                         oComboBox1 = oForm.Items.Item("23").Specific
+                                        If RemoveValidation(oComboBox.Selected.Value, oApplication.Utilities.getEdittextvalue(oForm, "12"), oComboBox1.Selected.Value) = False Then
+                                            oApplication.Utilities.Message("Some documents pending for approval. You can not inactive", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                            BubbleEvent = False
+                                            Exit Sub
+                                        End If
+                                    ElseIf oComboBox.Selected.Value = "Loanee" Then
+                                        oComboBox1 = oForm.Items.Item("28").Specific
                                         If RemoveValidation(oComboBox.Selected.Value, oApplication.Utilities.getEdittextvalue(oForm, "12"), oComboBox1.Selected.Value) = False Then
                                             oApplication.Utilities.Message("Some documents pending for approval. You can not inactive", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                                             BubbleEvent = False
@@ -213,6 +278,15 @@ Public Class clshrApproveTemp
                                                     Exit Sub
                                                 End If
                                             End If
+                                        ElseIf oComboBox.Selected.Value = "Loanee" Then
+                                            oComboBox1 = oForm.Items.Item("28").Specific
+                                            If oCheckBox.Checked = True Then
+                                                If ValidateAuthorizer(oComboBox.Selected.Value, oApplication.Utilities.getMatrixValues(oMatrix, "V_0", pVal.Row), oComboBox1.Selected.Value) = False Then
+                                                    oApplication.Utilities.Message("There is a pending request for this authorizer. You can not inactive", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                                    BubbleEvent = False
+                                                    Exit Sub
+                                                End If
+                                            End If
                                         Else
                                             If oCheckBox.Checked = True Then
                                                 If ValidateAuthorizer(oComboBox.Selected.Value, oApplication.Utilities.getMatrixValues(oMatrix, "V_0", pVal.Row)) = False Then
@@ -229,6 +303,15 @@ Public Class clshrApproveTemp
                                         oComboBox = oForm.Items.Item("17").Specific
                                         If oComboBox.Selected.Value = "LveReq" Then
                                             oComboBox1 = oForm.Items.Item("23").Specific
+                                            If oCheckBox.Checked = True Then
+                                                If ValidateAuthorizer(oComboBox.Selected.Value, oApplication.Utilities.getMatrixValues(oMatrix, "V_0", pVal.Row), oComboBox1.Selected.Value) = False Then
+                                                    oApplication.Utilities.Message("There is a pending request for this authorizer. You can not Change", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                                    BubbleEvent = False
+                                                    Exit Sub
+                                                End If
+                                            End If
+                                        ElseIf oComboBox.Selected.Value = "Loanee" Then
+                                            oComboBox1 = oForm.Items.Item("28").Specific
                                             If oCheckBox.Checked = True Then
                                                 If ValidateAuthorizer(oComboBox.Selected.Value, oApplication.Utilities.getMatrixValues(oMatrix, "V_0", pVal.Row), oComboBox1.Selected.Value) = False Then
                                                     oApplication.Utilities.Message("There is a pending request for this authorizer. You can not Change", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
@@ -301,19 +384,31 @@ Public Class clshrApproveTemp
                                             oForm.Items.Item("20").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                                             oForm.Items.Item("22").Visible = False
                                             oForm.Items.Item("23").Visible = False
+                                            oForm.Items.Item("27").Visible = False
+                                            oForm.Items.Item("28").Visible = False
                                         Case "Train", "TraReq", "ExpCli", "LoanReq"
                                             oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                                             oForm.Items.Item("22").Visible = False
                                             oForm.Items.Item("23").Visible = False
+                                            oForm.Items.Item("27").Visible = False
+                                            oForm.Items.Item("28").Visible = False
                                         Case "LveReq"
                                             oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                                             oForm.Items.Item("22").Visible = True
                                             oForm.Items.Item("23").Visible = True
+                                        Case "Loanee"
+                                            oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
+                                            oForm.Items.Item("27").Visible = True
+                                            oForm.Items.Item("28").Visible = True
                                     End Select
                                 End If
                                 If pVal.ItemUID = "23" Then
                                     oComboBox = oForm.Items.Item("23").Specific
                                     oApplication.Utilities.setEdittextvalue(oForm, "25", oComboBox.Selected.Description)
+                                End If
+                                If pVal.ItemUID = "27" Then
+                                    oComboBox = oForm.Items.Item("27").Specific
+                                    oApplication.Utilities.setEdittextvalue(oForm, "28", oComboBox.Selected.Description)
                                 End If
 
                             Case SAPbouiCOM.BoEventTypes.et_ITEM_PRESSED
@@ -486,7 +581,13 @@ Public Class clshrApproveTemp
                                 BubbleEvent = False
                                 Exit Sub
                             End If
-                           
+                        ElseIf oComboBox.Selected.Value = "Loanee" Then
+                            oComboBox1 = oForm.Items.Item("28").Specific
+                            If RemoveValidation(oComboBox.Selected.Value, oApplication.Utilities.getEdittextvalue(oForm, "12"), oComboBox1.Selected.Value) = False Then
+                                oApplication.Utilities.Message("Some documents pending for approval. You can not remove the template", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                BubbleEvent = False
+                                Exit Sub
+                            End If
                         Else
                             If RemoveValidation(oComboBox.Selected.Value, oApplication.Utilities.getEdittextvalue(oForm, "12")) = False Then
                                 oApplication.Utilities.Message("Some documents pending for approval. You can not remove the template", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
@@ -517,14 +618,22 @@ Public Class clshrApproveTemp
                         oForm.Items.Item("20").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                         oForm.Items.Item("22").Visible = False
                         oForm.Items.Item("23").Visible = False
+                        oForm.Items.Item("27").Visible = False
+                        oForm.Items.Item("28").Visible = False
                     Case "Train", "TraReq", "ExpCli", "LoanReq"
                         oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                         oForm.Items.Item("22").Visible = False
                         oForm.Items.Item("23").Visible = False
+                        oForm.Items.Item("27").Visible = False
+                        oForm.Items.Item("28").Visible = False
                     Case "LveReq"
                         oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
                         oForm.Items.Item("22").Visible = True
                         oForm.Items.Item("23").Visible = True
+                    Case "Loanee"
+                        oForm.Items.Item("7").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
+                        oForm.Items.Item("27").Visible = True
+                        oForm.Items.Item("28").Visible = True
                 End Select
             End If
             If oForm.TypeEx = frm_hr_ApproveTemp Then
@@ -908,6 +1017,37 @@ Public Class clshrApproveTemp
                             End If
                         End If
                     Next
+                Case "Loanee"
+                    oMatrix = aForm.Items.Item("9").Specific
+                    If oMatrix.RowCount = 0 Then
+                        oApplication.Utilities.Message("Employee Row Cannot be Empty...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        aForm.Freeze(False)
+                        Return False
+                    End If
+                    oComboBox1 = aForm.Items.Item("28").Specific
+                    Dim LveType As String = oComboBox1.Selected.Value
+                    If LveType = "" Then
+                        oApplication.Utilities.Message("Company Code Cannot be Empty...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        aForm.Freeze(False)
+                        Return False
+                    End If
+                    oMatrix = aForm.Items.Item("9").Specific
+                    For i As Integer = 1 To oMatrix.RowCount
+                        oEditText = oMatrix.Columns.Item("V_0").Cells.Item(i).Specific
+                        If oEditText.Value <> "" Then ' CType(oMatrix.Columns.Item("V_0").Cells.Item(i).Specific, SAPbouiCOM.EditText).Value <> "" Then
+                            oRecordSet = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                            strQuery = "Select 1 As 'Return' From [@Z_HR_APPT1] T0 inner join [@Z_HR_OAPPT] T1 on T0.DocEntry=T1.DocEntry"
+                            strQuery += " Where "
+                            strQuery += " T1.U_Z_Code <> '" & oApplication.Utilities.getEdittextvalue(aForm, "4") & "' and T1.U_Z_DocType ='" & oComboBox.Selected.Value & "' and T1.U_Z_LveType ='" & oComboBox1.Selected.Value & "'"
+                            strQuery += " And T0.U_Z_OUser = '" + CType(oMatrix.Columns.Item("V_0").Cells.Item(i).Specific, SAPbouiCOM.EditText).Value + "'"
+                            oRecordSet.DoQuery(strQuery)
+                            If oRecordSet.RecordCount > 0 Then
+                                oApplication.Utilities.Message("Employee Code : " + CType(oMatrix.Columns.Item("V_0").Cells.Item(i).Specific, SAPbouiCOM.EditText).Value + " Already Defined in another Template...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                aForm.Freeze(False)
+                                Return False
+                            End If
+                        End If
+                    Next
             End Select
             oMatrix = aForm.Items.Item("10").Specific
             If oMatrix.RowCount = 0 Then
@@ -1078,6 +1218,7 @@ Public Class clshrApproveTemp
             aForm.Items.Item("6").Enabled = blnEnable
             aForm.Items.Item("17").Enabled = blnEnable
             aForm.Items.Item("23").Enabled = blnEnable
+            aForm.Items.Item("28").Enabled = blnEnable
             ' oComboBox = aForm.Items.Item("17").Specific
             ' oComboBox.Select(0, SAPbouiCOM.BoSearchKey.psk_Index)
         Catch ex As Exception

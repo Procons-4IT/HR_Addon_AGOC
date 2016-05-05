@@ -100,6 +100,7 @@
         oColumn.ValidValues.Add("LveReq", "Leave Request")
         oColumn.ValidValues.Add("Rec", "Recruitment Request")
         oColumn.ValidValues.Add("LoanReq", "Loan Request")
+        oColumn.ValidValues.Add("Loanee", "Loanee Expenses")
         oColumn.DisplayDesc = True
         oColumn.ExpandType = SAPbouiCOM.BoExpandType.et_DescriptionOnly
         oEditText = aForm.Items.Item("6").Specific
@@ -185,12 +186,18 @@
         oTemp = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         oTemp1 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         oTemp2 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+        Dim strTempID As String
         oTemp.DoQuery("Select * from ""@Z_HR_RAUT"" T0 Inner Join ""@Z_HR_RAUT1"" T1 on T1.""DocEntry""=T0.""DocEntry"" where T1.""U_Z_Active""='Y' and T0.""DocEntry""=" & aDocEnry)
         For intRow As Integer = 0 To oTemp.RecordCount - 1
             strCurrentyApprover = oTemp.Fields.Item("U_Z_CurAut").Value
             strReplaceApprover = oTemp.Fields.Item("U_Z_RepAut").Value
             strReqType = oTemp.Fields.Item("U_Z_TransType").Value
-            strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where U_Z_DocType='" & strReqType & "' and T1.U_Z_aUser='" & strCurrentyApprover & "'"
+            strTempID = oTemp.Fields.Item("U_Z_TempID").Value
+            If strTempID = "" Then
+                strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where U_Z_AMan='Y' and  U_Z_DocType='" & strReqType & "' and T1.U_Z_aUser='" & strCurrentyApprover & "'"
+            Else
+                strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where U_Z_AMan='Y' and  T0.DocEntry=" & CInt(strTempID) & " and  U_Z_DocType='" & strReqType & "' and T1.U_Z_aUser='" & strCurrentyApprover & "'"
+            End If
             oTemp1.DoQuery(strQuery)
             For intLoop As Integer = 0 To oTemp1.RecordCount - 1
                 strQuery1 = "Update [@Z_HR_APPT2] set U_Z_AUser='" & strReplaceApprover & "',U_Z_AName='" & oTemp.Fields.Item("U_Z_RepAutName").Value & "' where DocEntry=" & oTemp1.Fields.Item("DocEntry").Value & " and LineID=" & oTemp1.Fields.Item("LineId").Value
@@ -247,10 +254,10 @@
                         oTemp2.DoQuery(strQuery1)
                     Case "LveReq"
 
-                        strQuery1 = "Update [@Z_PAY_OLETRANS1] set U_Z_CurApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_CurApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        strQuery1 = "Update [@Z_PAY_OLETRANS1] set U_Z_CurApprover='" & strReplaceApprover & "' where U_Z_Status='P' and U_Z_CurApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
 
-                        strQuery1 = "Update [@Z_PAY_OLETRANS1] set U_Z_NxtApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_NxtApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        strQuery1 = "Update [@Z_PAY_OLETRANS1] set U_Z_NxtApprover='" & strReplaceApprover & "' where U_Z_Status='P' and U_Z_NxtApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
 
 
@@ -277,8 +284,7 @@
 
                         strQuery1 = "Update [U_VACPOSITION] set  U_Z_NxtApprover1='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_NxtApprover1='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
-
-
+                     
 
                         strQuery1 = "Update [@Z_HR_OHEM1] set   U_Z_CurApprover1='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_CurApprover1='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
@@ -419,15 +425,20 @@
         Try
             Dim oTest As SAPbobsCOM.Recordset
             oTest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            Dim strCurAuth, strReplace As String
             If oApplication.Utilities.getEdittextvalue(aForm, "6") = "" Then
                 oApplication.Utilities.Message("Current Authorizer is missing...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                 Return False
+            Else
+                strCurAuth = oApplication.Utilities.getEdittextvalue(aForm, "6")
             End If
 
             oTest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
             If oApplication.Utilities.getEdittextvalue(aForm, "9") = "" Then
                 oApplication.Utilities.Message("Replaced Authorizer is missing...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                 Return False
+            Else
+                strReplace = oApplication.Utilities.getEdittextvalue(aForm, "9")
             End If
             oMatrix = oForm.Items.Item("16").Specific
             Dim strcode, strcode1 As Double
@@ -435,6 +446,45 @@
                 oApplication.Utilities.Message("Line details missing...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                 Return False
             End If
+            Dim strTempID, strQuery As String
+            Dim oRec As SAPbobsCOM.Recordset
+            oRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+            For intRow As Integer = 1 To oMatrix.RowCount
+                oCombobox = oMatrix.Columns.Item("V_0").Cells.Item(intRow).Specific
+                If oCombobox.Selected.Value <> "" Then
+                    strTempID = oApplication.Utilities.getMatrixValues(oMatrix, "V_3", intRow)
+                    If strTempID <> "" Then
+                        strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where   T0.DocEntry=" & CInt(strTempID) & " and  U_Z_DocType='" & oCombobox.Selected.Value & "' and T1.U_Z_aUser='" & strCurAuth & "'"
+                        oRec.DoQuery(strQuery)
+                        If oRec.RecordCount <= 0 Then
+                            oApplication.Utilities.Message("Current Authorizer : " & strCurAuth & " is not available in the selected template code : " & oApplication.Utilities.getMatrixValues(oMatrix, "V_2", intRow) & ".", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                            Return False
+                        End If
+
+                        strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where   T0.DocEntry=" & CInt(strTempID) & " and  U_Z_DocType='" & oCombobox.Selected.Value & "' and T1.U_Z_aUser='" & strReplace & "'"
+                        oRec.DoQuery(strQuery)
+                        If oRec.RecordCount > 0 Then
+                            oApplication.Utilities.Message("Replace Authorizer : " & strReplace & " is already available in the selected template code : " & oApplication.Utilities.getMatrixValues(oMatrix, "V_2", intRow) & ".", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                            Return False
+                        End If
+                        strQuery = "select T0.DocEntry,LineID from [@Z_HR_OAPPT] T0 Inner Join [@Z_HR_APPT2] T1 on T1.DocEntry=T0.DocEntry where U_Z_AMan='Y' and  T0.DocEntry=" & CInt(strTempID) & " and  U_Z_DocType='" & oCombobox.Selected.Value & "' and T1.U_Z_aUser='" & strCurAuth & "'"
+
+                        oRec.DoQuery(strQuery)
+                        If oRec.RecordCount <= 0 Then
+                            oApplication.Utilities.Message("Current Authorizer : " & strCurAuth & " is inactive in the selected template code : " & oApplication.Utilities.getMatrixValues(oMatrix, "V_2", intRow) & ".", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                            Return False
+                        End If
+                    Else
+                        oApplication.Utilities.Message("Template code missing...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                        Return False
+                    End If
+
+                  
+
+                End If
+
+            Next
+           
             AssignLineNo(oForm)
             Return True
         Catch ex As Exception
@@ -465,29 +515,41 @@
                                         Exit Sub
                                     End If
                                 End If
-                                'If pVal.ItemUID = "37" Then
-                                '    oApplication.Utilities.OpenMasterinLink(oForm, "Level")
-                                '    BubbleEvent = False
-                                '    Exit Sub
-                                'ElseIf pVal.ItemUID = "38" Then
-                                '    oApplication.Utilities.OpenMasterinLink(oForm, "Grade")
-                                '    BubbleEvent = False
-                                '    Exit Sub
-                                'End If
-                            Case SAPbouiCOM.BoEventTypes.et_KEY_DOWN
-                                'If pVal.EventType = SAPbouiCOM.BoEventTypes.et_KEY_DOWN And pVal.CharPressed <> "9" And pVal.ItemUID = "5" Then
-                                '    Dim strVal As String
-                                '    oForm = oApplication.SBO_Application.Forms.Item(FormUID)
-                                '    strVal = oApplication.Utilities.getEdittextvalue(oForm, "5")
-                                '    If strVal <> "" Then
-                                '        If oApplication.Utilities.ValidateCode(strVal, "SALARY") = True Then
-                                '            oApplication.Utilities.Message("Salary Code Already Mapped...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                                '            oForm.Items.Item("5").Click(SAPbouiCOM.BoCellClickType.ct_Regular)
-                                '            BubbleEvent = False
-                                '            Exit Sub
-                                '        End If
-                                '    End If
-                                'End If
+                              
+                            Case SAPbouiCOM.BoEventTypes.et_CHOOSE_FROM_LIST
+                                oForm = oApplication.SBO_Application.Forms.Item(FormUID)
+                                Dim oCFLs As SAPbouiCOM.ChooseFromListCollection
+                                Dim oCons As SAPbouiCOM.Conditions
+                                Dim oCon As SAPbouiCOM.Condition
+                                Dim oCFL As SAPbouiCOM.ChooseFromList
+                                Dim OItem As SAPbouiCOM.Item
+                                Dim oEdittext As SAPbouiCOM.EditText
+                                Dim oMatrix As SAPbouiCOM.Matrix
+                                Dim strCFLID As String = ""
+                                Try
+                                    If oForm.TypeEx <> "0" And pVal.ItemUID <> "" Then
+                                        OItem = oForm.Items.Item(pVal.ItemUID)
+                                        If OItem.Type = SAPbouiCOM.BoFormItemTypes.it_MATRIX Then
+                                            oMatrix = OItem.Specific
+                                            strCFLID = oMatrix.Columns.Item(pVal.ColUID).ChooseFromListUID
+                                        ElseIf OItem.Type = SAPbouiCOM.BoFormItemTypes.it_EDIT Then
+                                            oEdittext = OItem.Specific
+                                            strCFLID = oEdittext.ChooseFromListUID
+                                        End If
+                                        If OItem.UniqueID = "16" And pVal.ColUID = "V_3" Then
+                                            oMatrix = OItem.Specific
+                                            oCombobox = oMatrix.Columns.Item("V_0").Cells.Item(pVal.Row).Specific
+                                            Dim strType As String = oCombobox.Selected.Value
+                                            oApplication.Utilities.filterProjectChooseFromList(oForm, strCFLID, strType)
+
+                                        End If
+
+
+                                    End If
+                                Catch ex As Exception
+                                    oApplication.Utilities.Message(ex.Message, SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                                End Try
+
                             Case SAPbouiCOM.BoEventTypes.et_CLICK
                                 oForm = oApplication.SBO_Application.Forms.GetForm(pVal.FormTypeEx, pVal.FormTypeCount)
                                 If pVal.ItemUID = "16" And pVal.Row > 0 Then
@@ -561,6 +623,18 @@
                                                 oApplication.Utilities.setEdittextvalue(oForm, "10", val1)
                                                 oApplication.Utilities.setEdittextvalue(oForm, "9", val)
                                             Catch ex As Exception
+                                            End Try
+                                        End If
+
+                                        If pVal.ItemUID = "16" And pVal.ColUID = "V_3" Then
+                                            val = oDataTable.GetValue("DocEntry", 0)
+                                            val1 = oDataTable.GetValue("U_Z_Name", 0)
+                                            oMatrix = oForm.Items.Item(pVal.ItemUID).Specific
+                                            Try
+                                                oApplication.Utilities.SetMatrixValues(oMatrix, "V_2", pVal.Row, val1)
+                                                oApplication.Utilities.SetMatrixValues(oMatrix, "V_3", pVal.Row, val)
+                                            Catch ex As Exception
+
                                             End Try
                                         End If
                                        
@@ -710,6 +784,7 @@
             End If
         Catch ex As Exception
             MsgBox(ex.Message)
+
         End Try
     End Sub
 End Class

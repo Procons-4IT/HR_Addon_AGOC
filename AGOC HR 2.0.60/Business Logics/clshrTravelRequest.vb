@@ -347,15 +347,21 @@ Public Class clshrTravelRequest
             End If
             Dim oRec As SAPbobsCOM.Recordset
             oRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-            Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_EmpId='" & oApplication.Utilities.getEdittextvalue(aForm, "8") & "' and '" & strfromdt.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
+            Dim StrQuery As String = "select * from [@Z_HR_OTRAREQ] where U_Z_AppStatus <>'R' and  U_Z_EmpId='" & oApplication.Utilities.getEdittextvalue(aForm, "8") & "' and '" & strfromdt.ToString("yyyy-MM-dd") & "' between U_Z_TraStDate and U_Z_TraEndDate"
             oRec.DoQuery(StrQuery)
             If oRec.RecordCount > 0 Then
-                'oApplication.Utilities.Message("Travel request already booked in between period...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
-                If oApplication.SBO_Application.MessageBox("A travel request is already approved for the selected date, do you want to continue?", , "Continue", "Cancel") = 2 Then
-                    Return False
-                End If
+                oApplication.Utilities.Message("You have an Approved/Pending BTA for this date …., you cannot proceed with another BTA", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                Return False
+                'If oApplication.SBO_Application.MessageBox("A travel request is already approved for the selected date, do you want to continue?", , "Continue", "Cancel") = 2 Then
+                '    Return False
+                'End If
 
             End If
+
+            If oApplication.Utilities.expenceclaimValidations(oApplication.Utilities.getEdittextvalue(aForm, "8"), "BTA", strfromdt, sttodt) <> "" Then
+                Return False
+            End If
+
             If oForm.Title = "Travel Request Approval" Then
                 If oApplication.Utilities.getEdittextvalue(aForm, "56") = "" Then
                     oApplication.Utilities.Message("Enter Requested Approved Date...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)

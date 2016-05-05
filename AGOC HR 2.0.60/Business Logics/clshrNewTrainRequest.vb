@@ -159,6 +159,10 @@ Public Class clshrNewTrainRequest
                 If Blflag = False Then
                     'oApplication.Utilities.Message("Trainee Travels on on must be between training from date and training to date...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                     'Return False
+                Else
+                    If oApplication.Utilities.expenceclaimValidations(oApplication.Utilities.getEdittextvalue(aForm, "8"), "NewTraining", fromdt, todt) <> "" Then
+                        Return False
+                    End If
                 End If
             End If
             If returnon <> "" Then
@@ -174,6 +178,10 @@ Public Class clshrNewTrainRequest
                     'oApplication.Utilities.Message("Trainee Resumes Duty on must be between training from date and training to date...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
                     'Return False
                 End If
+            End If
+
+            If oApplication.Utilities.expenceclaimValidations(oApplication.Utilities.getEdittextvalue(aForm, "8"), "NewTraining", fromdt, todt) <> "" Then
+                Return False
             End If
             oCombobox = aForm.Items.Item("57").Specific
             Dim Approval As String = oApplication.Utilities.DocApproval(aForm, HeaderDoctype.Train, oApplication.Utilities.getEdittextvalue(aForm, "8"))

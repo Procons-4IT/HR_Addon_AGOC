@@ -56,12 +56,14 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Design, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Enterprise.Framework, Version=12.0.1100.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
-    <Reference Include="CrystalDecisions.Enterprise.InfoStore, Version=12.0.1100.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
     <Reference Include="CrystalDecisions.ReportSource, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=12.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="Interop.Scripting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -91,24 +93,31 @@
       <DependentUpon>Copy of rptAppraisal1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="bin\Debug\Reports\rptApp.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptApp.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="bin\Debug\Reports\rptAppraisal.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>rptAppraisal.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Business Logics\clsApprovalTemplateSearch.vb" />
     <Compile Include="Business Logics\clsAppShortListedApproval.vb" />
+    <Compile Include="Business Logics\clsAuthroizerReplacement.vb" />
     <Compile Include="Business Logics\clsBranchesMaster.vb" />
     <Compile Include="Business Logics\clsChooseFromList.vb" />
     <Compile Include="Business Logics\clsDepartmentMaster.vb" />
     <Compile Include="Business Logics\clsDisRule.vb" />
     <Compile Include="Business Logics\clshrAppHisDetails.vb" />
     <Compile Include="Business Logics\clshrAppraisalDistribution.vb" />
+    <Compile Include="Business Logics\clshrAppraisalGrade.vb" />
+    <Compile Include="Business Logics\clshrAppraisalPeriod.vb" />
     <Compile Include="Business Logics\clshrApproval.vb" />
     <Compile Include="Business Logics\clshrApproveTemp.vb" />
     <Compile Include="Business Logics\clshrASCanSelection.vb" />
@@ -120,6 +129,8 @@
     <Compile Include="Business Logics\clshrASCanSelectionSe.vb" />
     <Compile Include="Business Logics\clshrAssExpenses.vb" />
     <Compile Include="Business Logics\clshrAssignTraPlan.vb" />
+    <Compile Include="Business Logics\clshrBankTimeApproval.vb" />
+    <Compile Include="Business Logics\clshrBankTimeRequest.vb" />
     <Compile Include="Business Logics\clshrCandidates.vb" />
     <Compile Include="Business Logics\clshrCompObjMaster.vb" />
     <Compile Include="Business Logics\clshrCourseCategory.vb" />
@@ -139,7 +150,9 @@
     <Compile Include="Business Logics\clshrExitProcess.vb" />
     <Compile Include="Business Logics\clshrExitQuestion.vb" />
     <Compile Include="Business Logics\clshrExitResponse.vb" />
+    <Compile Include="Business Logics\clshrExpClaimPosting.vb" />
     <Compile Include="Business Logics\clshrExpClaimRequest.vb" />
+    <Compile Include="Business Logics\clshrExpClaimView.vb" />
     <Compile Include="Business Logics\clshrExpenses.vb" />
     <Compile Include="Business Logics\clshrFinalApproval.vb" />
     <Compile Include="Business Logics\ClshrGAcceptance.vb" />
@@ -154,6 +167,7 @@
     <Compile Include="Business Logics\clshrLeaveRequest.vb" />
     <Compile Include="Business Logics\clshrLogin.vb" />
     <Compile Include="Business Logics\clshrLoginSetup.vb" />
+    <Compile Include="Business Logics\clshrNLoginSetup.vb" />
     <Compile Include="Business Logics\clshrMgrRegTrainApproval.vb" />
     <Compile Include="Business Logics\clshrMgrTrainApp.vb" />
     <Compile Include="Business Logics\clshrMgrTrainingEva.vb" />
@@ -173,6 +187,7 @@
     <Compile Include="Business Logics\clshrMPRequest.vb" />
     <Compile Include="Business Logics\clshrNewTrainRequest.vb" />
     <Compile Include="Business Logics\clshrObjLoan.vb" />
+    <Compile Include="Business Logics\clshrOfferAllowance.vb" />
     <Compile Include="Business Logics\clshrORejectionMaster.vb" />
     <Compile Include="Business Logics\clshrOrgStructure.vb" />
     <Compile Include="Business Logics\clshrPayMethod.vb" />
@@ -233,6 +248,8 @@
     <Compile Include="Business Logics\clshrResidencyStatus.vb" />
     <Compile Include="Business Logics\clshrFApproval.vb" />
     <Compile Include="Business Logics\clshrHRecApproval.vb" />
+    <Compile Include="Business Logics\clsHRDisRule.vb" />
+    <Compile Include="Business Logics\clshrLoaneeExpenses.vb" />
     <Compile Include="Business Logics\Custom_ChooseFromList.vb" />
     <Compile Include="Modules\modVariables.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -326,9 +343,24 @@
     <Content Include="bin\Debug\Appraisal.htm" />
     <Content Include="bin\Debug\Agenda.htm" />
     <Content Include="bin\Debug\XML Files\CFL.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LExpenses.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="bin\Debug\XML Files\frm_DisRuleHR.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppGrade.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_AppPeriod.xml" />
+    <Content Include="bin\Debug\XML Files\frm_HR_BankTimeReq.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_BnkTmeApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_EmpAllOffer.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitfrmRespons.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpClaimPost.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpClaimView.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_LeaveApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_FinalApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_LveRequest.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_NLoginSetup.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_ShortApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_MPRApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_TrainNewApproval.xml" />
@@ -338,9 +370,13 @@
     <Content Include="bin\Debug\XML Files\frm_hr_ApproveTemp.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_DocType.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_EmpPosition.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_ExpClaimReq.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExpClaimReq.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_HRecApproval.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_FApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_FApproval.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_AppDisMaster.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHOD.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_CReqSelectionIPHR.xml" />
@@ -353,7 +389,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_ExitfrmInit.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_ExitInvForm.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_ExitProcess.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_ExitResponse.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ExitResponse.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_HRRegTrainApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_IPGAcceptance.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_MgrEva.xml" />
@@ -371,7 +409,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_InterviewType.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_Allowance.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AppAttendees.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_Approval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Approval.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_AppShortListed.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AssExpenses.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_AssignTraPlan.xml" />
@@ -391,7 +431,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_EmpTraining.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_ExpApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_ExpenseClaim.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_Expenses.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_Expenses.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_Function.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_GAcceptance.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_GradeLevel.xml" />
@@ -403,9 +445,13 @@
     <Content Include="bin\Debug\XML Files\frm_hr_IRatings.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_Location.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_Login.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_LoginSetup.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_LoginSetup.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_MgrTrainApp.xml" />
-    <Content Include="bin\Debug\XML Files\frm_Hr_MPRequest.xml" />
+    <Content Include="bin\Debug\XML Files\frm_Hr_MPRequest.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_NewTrainReq.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_ORejectionMaster.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_OrgStructure.xml" />
@@ -420,7 +466,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_RecApproval.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_RecClosing.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_RejectionMaster.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_SalStructure.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_SalStructure.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_Search.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_SelfAppraisal.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_SlctnCreteria.xml" />
@@ -432,7 +480,9 @@
     <Content Include="bin\Debug\XML Files\frm_hr_TrainPlan.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_TrainQcRA.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_TrainReg.xml" />
-    <Content Include="bin\Debug\XML Files\frm_hr_ClaimApproval.xml" />
+    <Content Include="bin\Debug\XML Files\frm_hr_ClaimApproval.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="bin\Debug\XML Files\frm_hr_Transfer.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_TraRequest.xml" />
     <Content Include="bin\Debug\XML Files\frm_hr_TravelApproval.xml" />
@@ -448,24 +498,7 @@
   <ItemGroup>
     <Service Include="{3924545A-F8E2-475A-B1A4-05175BC41E50}" />
     <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="SAPbobsCOM">
-      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
-      <VersionMajor>9</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
-    <COMReference Include="SAPbouiCOM">
-      <Guid>{6048236A-956D-498D-A6F1-9C81C13AB6E8}</Guid>
-      <VersionMajor>9</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\Log\" />
@@ -486,6 +519,26 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SAPbobsCOM">
+      <Guid>{FC8030BE-F5D2-4B8E-8F92-44228FE30090}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SAPbouiCOM">
+      <Guid>{6048236A-956D-498D-A6F1-9C81C13AB6E8}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

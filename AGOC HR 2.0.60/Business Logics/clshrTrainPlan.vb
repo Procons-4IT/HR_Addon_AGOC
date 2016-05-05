@@ -866,6 +866,8 @@ Public Class clshrTrainPlan
                 Dim stXML As String = BusinessObjectInfo.ObjectKey
                 stXML = stXML.Replace("<?xml version=""1.0"" encoding=""UTF-16"" ?><Traing Agenda SetupParams><DocEntry>", "")
                 stXML = stXML.Replace("</DocEntry></Traing Agenda SetupParams>", "")
+                stXML = stXML.Replace("<?xml version=""1.0"" encoding=""UTF-16"" ?><Training Agenda SetupParams><DocEntry>", "")
+                stXML = stXML.Replace("</DocEntry></Training Agenda SetupParams>", "")
                 Dim otest, otest1 As SAPbobsCOM.Recordset
                 otest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
                 otest1 = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)

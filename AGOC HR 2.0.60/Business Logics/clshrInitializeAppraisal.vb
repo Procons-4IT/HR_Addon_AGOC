@@ -408,7 +408,7 @@ Public Class clshrInitializeAppraisal
                 If oCheckbox.IsChecked(intRow) Then
                     Dim strempid, strempname As String
                     strempid = oGrid.DataTable.GetValue("empID", intRow)
-                    strempname = oGrid.DataTable.GetValue("firstName", intRow)
+                    strempname = oApplication.Utilities.getEmpName(strempid) 'oGrid.DataTable.GetValue("firstName", intRow)
                     strDept = oApplication.Utilities.getDeptID(oGrid.DataTable.GetValue("Department", intRow))
                     oGeneralData1.SetProperty("U_Z_Status", "D")
                     oGeneralData1.SetProperty("U_Z_EmpId", strempid)

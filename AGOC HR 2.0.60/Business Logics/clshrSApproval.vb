@@ -24,6 +24,7 @@ Public Class clshrsApproval
     Private oRecordSet As SAPbobsCOM.Recordset
     Private sQuery As String
     Private oHTUpdateCol As Hashtable
+    Dim dblselrate As Double = 0.0
 
     Public Sub New()
         MyBase.New()
@@ -190,6 +191,7 @@ Public Class clshrsApproval
             oComboStatus.ValidValues.Add("SM", "Sr.Manager Approved")
             oComboStatus.ValidValues.Add("HR", "HR Approved")
             oComboStatus.ValidValues.Add("DR", "Draft")
+            oComboStatus.ValidValues.Add("C", "HR Canceled")
         Catch ex As Exception
 
         End Try
@@ -238,19 +240,19 @@ Public Class clshrsApproval
 
         If strtitle = "MgrApp" Then
             stremp = oApplication.Utilities.getManagerEmPID(oUserID)
-            strqry = " select DocEntry,U_Z_EmpId,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus'   from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode  Where U_Z_EmpId in ( select empID from OHEM where manager in( " & stremp & "))"
+            strqry = " select DocEntry,U_Z_EmpId,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled'  end as 'U_Z_WStatus'   from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode  Where U_Z_EmpId in ( select empID from OHEM where manager in( " & stremp & "))"
         ElseIf strtitle = "SMgrApp" Then
             strqry = " select DocEntry,T0.U_Z_EmpId,U_Z_EmpName,U_Z_Date,T0.U_Z_Period,T2.U_Z_PerDesc,T2.""U_Z_PerFrom"" as 'Period From',"
             strqry += " T2.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' when 'S'then '2nd Level Approval' when 'L'"
-            strqry += " then 'Closed' else 'Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM' then "
-            strqry += " 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus'   "
+            strqry += " then 'Closed' else 'HR Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM' then "
+            strqry += " 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled'  end as 'U_Z_WStatus'   "
             strqry += " from [@Z_HR_OSEAPP] T0 JOIN OHEM T1 On T0.U_Z_EmpID = T1.empID and isnull(T1.U_Z_SecondApp,'N')='Y' Left Outer Join ""@Z_HR_PERAPP"" T2 on T0.U_Z_Period=T2.U_Z_PerCode "
             '  strqry += " where T1.Manager IN  (SELECT EmpId From OHEM Where UserID = " & strUser & "  Union (Select EmpId From OHEM Where Manager "
             strqry += " where T1.Manager IN  (  (Select EmpId From OHEM Where Manager "
             strqry += " In (SELECT EmpId From OHEM Where UserID = " & strUser & "))) "
             'strqry += " In (SELECT EmpId From OHEM Where EmpId in ( " & stremp & ")))) "
         ElseIf strtitle = "HR" Then
-            strqry = "select DocEntry,U_Z_EmpId ,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode Where U_Z_Period='" & Period & "' "
+            strqry = "select DocEntry,U_Z_EmpId ,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved' when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled'  end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode Where U_Z_Period='" & Period & "' "
             If Dept.Length > 0 Then
                 strqry = strqry & "and U_Z_EmpID in (Select empId from OHEM where Dept='" & Dept & "')"
             End If
@@ -260,10 +262,10 @@ Public Class clshrsApproval
         Else
             If strempid <> "" Then
                 strqry = "select DocEntry,U_Z_EmpId,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved'"
-                strqry = strqry & " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode where U_Z_EmpId='" & strempid & "'"
+                strqry = strqry & " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled'  end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode where U_Z_EmpId='" & strempid & "'"
             Else
                 strqry = "select DocEntry,U_Z_EmpId,U_Z_EmpName,U_Z_Date,U_Z_Period,T1.U_Z_PerDesc,T1.""U_Z_PerFrom"" as 'Period From',T1.""U_Z_PerTo"" as 'Period To',case U_Z_Status when 'D' then 'Draft' when 'F' then 'Approved'"
-                strqry = strqry & " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved'  end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode"
+                strqry = strqry & " when 'S'then '2nd Level Approval' when 'L' then 'Closed' else 'HR Canceled' end as U_Z_Status,case U_Z_WStatus when 'DR' then 'Draft' when 'HR' then 'HR Approved' when 'SM'then 'Sr.Manager Approved' when 'LM' then 'LineManager Approved'when 'SE' then 'SelfApproved' else 'HR Canceled' end as 'U_Z_WStatus' from [@Z_HR_OSEAPP] T0 Left Outer Join ""@Z_HR_PERAPP"" T1 on T0.U_Z_Period=T1.U_Z_PerCode"
             End If
         End If
         strqry = strqry & " Order by DocEntry desc"
@@ -272,7 +274,7 @@ Public Class clshrsApproval
         Dim ostatic As SAPbouiCOM.StaticText
         ostatic = oForm.Items.Item("351").Specific
         ostatic.Caption = strqry
-        oGrid.Columns.Item("DocEntry").TitleObject.Caption = "Apprisal Number"
+        oGrid.Columns.Item("DocEntry").TitleObject.Caption = "Appraisal Number"
         oGrid.Columns.Item("DocEntry").Editable = False
         oEditTextColumn = oGrid.Columns.Item("DocEntry")
         oEditTextColumn.LinkedObjectType = SAPbouiCOM.BoLinkedObject.lf_Invoice
@@ -309,9 +311,9 @@ Public Class clshrsApproval
             StrQP2 = ""
             StrQP3 = ""
             StrQP0 = "SELECT ""U_Z_WStatus"", ""U_Z_BSelfRemark"", ""U_Z_BMgrRemark"", ""U_Z_BSMrRemark"", ""U_Z_BHrRemark"", ""U_Z_PSelfRemark"", ""U_Z_PMgrRemark"", ""U_Z_PSMrRemark"", ""U_Z_PHrRemark"", ""U_Z_CSelfRemark"", ""U_Z_CMgrRemark"", ""U_Z_CSMrRemark"", ""U_Z_CHrRemark"" FROM ""@Z_HR_OSEAPP"" WHERE ""DocEntry""=" & DocNo & ""
-            StrQP1 = "Select U_Z_BussCode as 'Code',U_Z_BussDesc as 'Business Objectives',U_Z_BussWeight as 'Weight (%)' ,T0.""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',U_Z_BussSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',U_Z_BussMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',U_Z_BussSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP1] T0 Where DocEntry=" & DocNo & ""
-            StrQP2 = "Select T0.U_Z_PeopleCode as 'Code',T0.U_Z_PeopleDesc as 'People Objectives',T2.U_Z_Remarks 'Emp Remarks',T0.U_Z_PeopleCat as 'Category',T0.U_Z_PeoWeight as 'Weight (%)',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_PeoSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_PeoMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_PeoSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP2] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_PEOBJ1] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID  and T2.U_Z_HRPeoobjCode=T0.U_Z_PeopleCode Where T0.DocEntry = " & DocNo & ""
-            StrQP3 = "Select T0.U_Z_CompCode as 'Code',T0.U_Z_CompDesc as 'Competence Objectives',T0.U_Z_CompWeight as 'Weight (%)',T0.U_Z_CompLevel as 'Levels',T2.U_Z_CompLevel As 'Current Level',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_CompSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_CompMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_CompSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP3] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_ECOLVL] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID and T2.U_Z_CompCode =T0.U_Z_CompCode  Where T0.DocEntry = " & DocNo & ""
+            StrQP1 = "Select U_Z_BussCode as 'Code',U_Z_BussDesc as 'Business Objectives',U_Z_BussWeight as 'Weight (%)' ,T0.""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',U_Z_BussSelfRate as 'Self Rating Value',U_Z_BussSelfGrade as 'Self Grade',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',U_Z_BussMgrRate as 'First Level Manager Rating Value',U_Z_BussMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',U_Z_BussSMRate as 'Second Level Manager Rating Value',U_Z_BussSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP1] T0 Where DocEntry=" & DocNo & ""
+            StrQP2 = "Select T0.U_Z_PeopleCode as 'Code',T0.U_Z_PeopleDesc as 'People Objectives',T2.U_Z_Remarks 'Emp Remarks',T0.U_Z_PeopleCat as 'Category',T0.U_Z_PeoWeight as 'Weight (%)',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_PeoSelfRate as 'Self Rating Value',U_Z_PeoSelfGrade as 'Self Grade' ,T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_PeoMgrRate as 'First Level Manager Rating Value',U_Z_PeoMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_PeoSMRate as 'Second Level Manager Rating Value',U_Z_PeoSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP2] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_PEOBJ1] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID  and T2.U_Z_HRPeoobjCode=T0.U_Z_PeopleCode Where T0.DocEntry = " & DocNo & ""
+            StrQP3 = "Select T0.U_Z_CompCode as 'Code',T0.U_Z_CompDesc as 'Competence Objectives',T0.U_Z_CompWeight as 'Weight (%)',T0.U_Z_CompLevel as 'Levels',T2.U_Z_CompLevel As 'Current Level',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_CompSelfRate as 'Self Rating Value',U_Z_CompSelfGrade as 'Self Grade',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_CompMgrRate as 'First Level Manager Rating Value',U_Z_CompMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_CompSMRate as 'Second Level Manager Rating Value',U_Z_CompSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP3] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_ECOLVL] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID and T2.U_Z_CompCode =T0.U_Z_CompCode  Where T0.DocEntry = " & DocNo & ""
 
             oGrid_P1.DataTable.ExecuteQuery(StrQP1)
             oGrid_P2.DataTable.ExecuteQuery(StrQP2)
@@ -542,7 +544,7 @@ Public Class clshrsApproval
 
             End Try
 
-            colSum()
+            colSum(DocNo)
 
             oGrid_P2.Columns.Item("Emp Remarks").TitleObject.Caption = "Remarks"
             oGrid_P2.Columns.Item("Emp Remarks").Editable = False
@@ -777,6 +779,18 @@ Public Class clshrsApproval
                 oGrid_P2.Columns.Item("U_Z_MgrRaCode").Editable = False
                 oGrid_P3.Columns.Item("U_Z_MgrRaCode").Editable = False
 
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
+
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
                 oGrid_P3.Columns.Item("Levels").TitleObject.Caption = "Min expected level"
@@ -954,6 +968,17 @@ Public Class clshrsApproval
                 oGrid_P2.Columns.Item("U_Z_MgrRaCode").Editable = True
                 oGrid_P3.Columns.Item("U_Z_MgrRaCode").Editable = True
 
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
 
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
@@ -1018,6 +1043,18 @@ Public Class clshrsApproval
                 oGrid_P2.Columns.Item("Second Level Manager Remarks").Editable = True
                 oGrid_P3.Columns.Item("Second Level Manager Remarks").Editable = True
 
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
+
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
                 oGrid_P3.Columns.Item("Levels").TitleObject.Caption = "Min expected level"
@@ -1066,7 +1103,7 @@ Public Class clshrsApproval
             Exit Sub
         End If
         oGrid.DataTable.ExecuteQuery(strqry)
-        oGrid.Columns.Item("DocEntry").TitleObject.Caption = "Apprisal Number"
+        oGrid.Columns.Item("DocEntry").TitleObject.Caption = "Appraisal Number"
         oGrid.Columns.Item("DocEntry").Editable = False
         oEditTextColumn = oGrid.Columns.Item("DocEntry")
         oEditTextColumn.LinkedObjectType = SAPbouiCOM.BoLinkedObject.lf_Invoice
@@ -1103,9 +1140,9 @@ Public Class clshrsApproval
             StrQP2 = ""
             StrQP3 = ""
             StrQP0 = "SELECT ""U_Z_WStatus"", ""U_Z_BSelfRemark"", ""U_Z_BMgrRemark"", ""U_Z_BSMrRemark"", ""U_Z_BHrRemark"", ""U_Z_PSelfRemark"", ""U_Z_PMgrRemark"", ""U_Z_PSMrRemark"", ""U_Z_PHrRemark"", ""U_Z_CSelfRemark"", ""U_Z_CMgrRemark"", ""U_Z_CSMrRemark"", ""U_Z_CHrRemark"" FROM ""@Z_HR_OSEAPP"" WHERE ""DocEntry""=" & DocNo & ""
-            StrQP1 = "Select U_Z_BussCode as 'Code',U_Z_BussDesc as 'Business Objectives',U_Z_BussWeight as 'Weight (%)' ,T0.""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',U_Z_BussSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',U_Z_BussMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',U_Z_BussSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP1] T0 Where DocEntry=" & DocNo & ""
-            StrQP2 = "Select T0.U_Z_PeopleCode as 'Code',T0.U_Z_PeopleDesc as 'People Objectives',T2.U_Z_Remarks 'Emp Remarks',T0.U_Z_PeopleCat as 'Category',T0.U_Z_PeoWeight as 'Weight (%)',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_PeoSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_PeoMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_PeoSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP2] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_PEOBJ1] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID  and T2.U_Z_HRPeoobjCode=T0.U_Z_PeopleCode Where T0.DocEntry = " & DocNo & ""
-            StrQP3 = "Select T0.U_Z_CompCode as 'Code',T0.U_Z_CompDesc as 'Competence Objectives',T0.U_Z_CompWeight as 'Weight (%)',T0.U_Z_CompLevel as 'Levels',T2.U_Z_CompLevel As 'Current Level',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_CompSelfRate as 'Self Rating Value',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_CompMgrRate as 'First Level Manager Rating Value',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_CompSMRate as 'Second Level Manager Rating Value' from [@Z_HR_SEAPP3] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_ECOLVL] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID and T2.U_Z_CompCode =T0.U_Z_CompCode  Where T0.DocEntry = " & DocNo & ""
+            StrQP1 = "Select U_Z_BussCode as 'Code',U_Z_BussDesc as 'Business Objectives',U_Z_BussWeight as 'Weight (%)' ,T0.""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',U_Z_BussSelfRate as 'Self Rating Value',U_Z_BussSelfGrade as 'Self Grade',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',U_Z_BussMgrRate as 'First Level Manager Rating Value',U_Z_BussMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',U_Z_BussSMRate as 'Second Level Manager Rating Value',U_Z_BussSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP1] T0 Where DocEntry=" & DocNo & ""
+            StrQP2 = "Select T0.U_Z_PeopleCode as 'Code',T0.U_Z_PeopleDesc as 'People Objectives',T2.U_Z_Remarks 'Emp Remarks',T0.U_Z_PeopleCat as 'Category',T0.U_Z_PeoWeight as 'Weight (%)',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_PeoSelfRate as 'Self Rating Value',U_Z_PeoSelfGrade as 'Self Grade' ,T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_PeoMgrRate as 'First Level Manager Rating Value',U_Z_PeoMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_PeoSMRate as 'Second Level Manager Rating Value',U_Z_PeoSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP2] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_PEOBJ1] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID  and T2.U_Z_HRPeoobjCode=T0.U_Z_PeopleCode Where T0.DocEntry = " & DocNo & ""
+            StrQP3 = "Select T0.U_Z_CompCode as 'Code',T0.U_Z_CompDesc as 'Competence Objectives',T0.U_Z_CompWeight as 'Weight (%)',T0.U_Z_CompLevel as 'Levels',T2.U_Z_CompLevel As 'Current Level',""U_Z_SelfRaCode"",U_Z_SelfRemark as 'Self Remarks',T0.U_Z_CompSelfRate as 'Self Rating Value',U_Z_CompSelfGrade as 'Self Grade',T0.""U_Z_MgrRaCode"",U_Z_MgrRemark as 'First Level Manager Remarks',T0.U_Z_CompMgrRate as 'First Level Manager Rating Value',U_Z_CompMgrGrade as 'First Level Manager Grade',T0.""U_Z_SMRaCode"",U_Z_SrRemark as 'Second Level Manager Remarks',T0.U_Z_CompSMRate as 'Second Level Manager Rating Value',U_Z_CompSMGrade as 'Second Level Manager Grade' from [@Z_HR_SEAPP3] T0 Join [@Z_HR_OSEAPP] T1 ON T1.DocEntry = T0.DocEntry Left Outer Join [@Z_HR_ECOLVL] T2 On T1.U_Z_EmpId = T2.U_Z_HREmpID and T2.U_Z_CompCode =T0.U_Z_CompCode  Where T0.DocEntry = " & DocNo & ""
 
             oGrid_P1.DataTable.ExecuteQuery(StrQP1)
             oGrid_P2.DataTable.ExecuteQuery(StrQP2)
@@ -1130,7 +1167,7 @@ Public Class clshrsApproval
                 strStatus = oRec.Fields.Item("U_Z_Status").Value.ToString()
             End If
 
-            colSum()
+            colSum(DocNo)
 
             oGrid_P2.Columns.Item("Emp Remarks").TitleObject.Caption = "Remarks"
             oGrid_P2.Columns.Item("Emp Remarks").Editable = False
@@ -1431,6 +1468,17 @@ Public Class clshrsApproval
                 oGrid_P1.Columns.Item("Second Level Manager Rating Value").Editable = False
                 oGrid_P2.Columns.Item("Second Level Manager Rating Value").Editable = False
                 oGrid_P3.Columns.Item("Second Level Manager Rating Value").Editable = False
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
                 oGrid_P3.Columns.Item("Levels").TitleObject.Caption = "Min expected level"
@@ -1523,6 +1571,19 @@ Public Class clshrsApproval
                 oGrid_P1.Columns.Item("Second Level Manager Rating Value").Editable = False
                 oGrid_P2.Columns.Item("Second Level Manager Rating Value").Editable = False
                 oGrid_P3.Columns.Item("Second Level Manager Rating Value").Editable = False
+
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
+
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
                 oGrid_P3.Columns.Item("Levels").TitleObject.Caption = "Min expected level"
@@ -1555,6 +1616,17 @@ Public Class clshrsApproval
                 oGrid_P1.Columns.Item("Self Rating Value").Editable = False
                 oGrid_P2.Columns.Item("Self Rating Value").Editable = False
                 oGrid_P3.Columns.Item("Self Rating Value").Editable = False
+                oGrid_P1.Columns.Item("Self Grade").Visible = False
+                oGrid_P2.Columns.Item("Self Grade").Visible = False
+                oGrid_P3.Columns.Item("Self Grade").Visible = False
+
+                oGrid_P1.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("First Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("First Level Manager Grade").Visible = False
+
+                oGrid_P1.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P2.Columns.Item("Second Level Manager Grade").Visible = False
+                oGrid_P3.Columns.Item("Second Level Manager Grade").Visible = False
                 oGrid_P2.Columns.Item("Category").Editable = False
                 oGrid_P3.Columns.Item("Levels").Editable = False
                 oGrid_P3.Columns.Item("Levels").TitleObject.Caption = "Min expected level"
@@ -1642,7 +1714,7 @@ Public Class clshrsApproval
 #End Region
 
 #Region "Update Document"
-    Private Sub UpdateDocument(ByVal oHashB As Hashtable, ByVal oHashP As Hashtable, ByVal oHashC As Hashtable, ByVal strBRmark As String, ByVal strPRmark As String, ByVal strCRmark As String, ByVal strWStatus As String, ByVal DocNo As Integer, ByVal intFlag As Integer, ByVal oHGrevence As Hashtable, ByVal strChkStatus As String, ByVal oHashB1 As Hashtable, ByVal oHashP1 As Hashtable, ByVal oHashC1 As Hashtable)
+    Private Sub UpdateDocument(ByVal oHashB As Hashtable, ByVal oHashP As Hashtable, ByVal oHashC As Hashtable, ByVal strBRmark As String, ByVal strPRmark As String, ByVal strCRmark As String, ByVal strWStatus As String, ByVal DocNo As Integer, ByVal intFlag As Integer, ByVal oHGrevence As Hashtable, ByVal strChkStatus As String, ByVal oHashB1 As Hashtable, ByVal oHashP1 As Hashtable, ByVal oHashC1 As Hashtable, ByVal oHashB3 As Hashtable, ByVal oHashP3 As Hashtable, ByVal oHashC3 As Hashtable)
         Dim oRec As SAPbobsCOM.Recordset
         oRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         oHTUpdateCol = New Hashtable()
@@ -1657,7 +1729,7 @@ Public Class clshrsApproval
             If oHGrevence.Count > 0 Then
                 If oHGrevence(1).ToString() = "Y" Then
                     If oHGrevence(2).ToString() = "A" Then
-                        strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                        strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "' Where DocEntry=" & DocNo & ""
                         oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                         oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                         oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1666,7 +1738,7 @@ Public Class clshrsApproval
                         oHTUpdateCol.Add("U_Z_GStatus", oHGrevence(2).ToString())
                     Else
                         If oHGrevence(2).ToString = "-" Then
-                            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "' Where DocEntry=" & DocNo & ""
                             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                             oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1674,7 +1746,7 @@ Public Class clshrsApproval
                             oHTUpdateCol.Add("U_Z_CSelfRemark", strCRmark)
                             oHTUpdateCol.Add("U_Z_GStatus", oHGrevence(2).ToString())
                         Else
-                            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "',""U_Z_GDate""='" & oHGrevence(3).ToString() & "',""U_Z_GNo""='" & oHGrevence(4).ToString() & "',""U_Z_GRemarks""='" & oHGrevence(5).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "',U_Z_GDate='" & oHGrevence(3).ToString() & "',U_Z_GNo='" & oHGrevence(4).ToString() & "',U_Z_GRemarks='" & oHGrevence(5).ToString() & "' Where DocEntry=" & DocNo & ""
                             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                             oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1690,8 +1762,7 @@ Public Class clshrsApproval
                     oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
                 End If
             End If
-
-            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "', ""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "' Where ""DocEntry""=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "', U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             oHTUpdateCol.Clear()
             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
@@ -1701,16 +1772,23 @@ Public Class clshrsApproval
             oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             'oRec.DoQuery(strQuery)
             For i = 1 To oHashB.Count
-                strQuery1 = "Update ""@Z_HR_SEAPP1"" set ""U_Z_BussSelfRate""='" & oHashB(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery1)
+                If oHashB(i).ToString() <> "" Then
+                    strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_BussSelfRate='" & oHashB(i).ToString() & "',U_Z_SelfRemark='" & oHashB1(i).ToString() & "',U_Z_BussSelfGrade='" & oHashB3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery1)
+                End If
             Next
             For i = 1 To oHashP.Count
-                strQuery2 = "Update ""@Z_HR_SEAPP2"" set ""U_Z_PeoSelfRate""='" & oHashP(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery2)
+                If oHashP(i).ToString() <> "" Then
+                    strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_PeoSelfRate='" & oHashP(i).ToString() & "',U_Z_SelfRemark='" & oHashP1(i).ToString() & "',U_Z_PeoSelfGrade='" & oHashP3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery2)
+                End If
             Next
             For i = 1 To oHashC.Count
-                strQuery3 = "Update ""@Z_HR_SEAPP3"" set ""U_Z_CompSelf"" = '" & oHashC(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery3)
+                If oHashC(i).ToString() <> "" Then
+                    'strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_SelfRaCode = '" & oHashC(i).ToString() & "', U_Z_CompSelfRate = '" & oHashC(i).ToString() & "',U_Z_CompSelf = '" & oHashC(i).ToString() & "',U_Z_SelfRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    strQuery3 = "Update [@Z_HR_SEAPP3] set  U_Z_CompSelfRate = '" & oHashC(i).ToString() & "',U_Z_SelfRemark='" & oHashC1(i).ToString() & "',U_Z_CompSelfGrade='" & oHashC3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery3)
+                End If
             Next
 
         ElseIf intFlag = 2 Then
@@ -1719,7 +1797,7 @@ Public Class clshrsApproval
             Dim strQuery2 As String = ""
             Dim strQuery3 As String = ""
             Dim i, j, k As Integer
-            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_LCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BMgrRemark""='" & strBRmark & "' ,  ""U_Z_PMgrRemark""='" & strPRmark & "' ,  ""U_Z_CMgrRemark""='" & strCRmark & "' Where ""DocEntry""=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_LCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BMgrRemark='" & strBRmark & "' ,  U_Z_PMgrRemark='" & strPRmark & "' ,  U_Z_CMgrRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             oHTUpdateCol.Clear()
             oHTUpdateCol.Add("U_Z_LCkApp", strChkStatus)
             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
@@ -1729,20 +1807,20 @@ Public Class clshrsApproval
             oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             'oRec.DoQuery(strQuery)
             For i = 1 To oHashB.Count
-                strQuery1 = "Update ""@Z_HR_SEAPP1"" set ""U_Z_BussMgrRate""='" & oHashB(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_BussMgrRate='" & oHashB(i).ToString() & "',U_Z_MgrRemark='" & oHashB1(i).ToString() & "',U_Z_BussMgrGrade='" & oHashB3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery1)
             Next
             For i = 1 To oHashP.Count
-                strQuery2 = "Update ""@Z_HR_SEAPP2"" set ""U_Z_PeoMgrRate""='" & oHashP(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_PeoMgrRate='" & oHashP(i).ToString() & "',U_Z_MgrRemark='" & oHashP1(i).ToString() & "',U_Z_PeoMgrGrade='" & oHashP3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery2)
             Next
             For i = 1 To oHashC.Count
-                strQuery3 = "Update ""@Z_HR_SEAPP3"" set ""U_Z_CompMgrRate"" = '" & oHashC(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_CompMgrRate = '" & oHashC(i).ToString() & "',U_Z_MgrRemark='" & oHashC1(i).ToString() & "',U_Z_CompMgrGrade='" & oHashC3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery3)
             Next
 
             If strChkStatus = "Y" Then
-                strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_LMNotify""='Y' Where ""DocEntry""=" & DocNo & ""
+                strQuery = "Update [@Z_HR_OSEAPP] set U_Z_LMNotify='Y' Where DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery)
             End If
 
@@ -1752,7 +1830,7 @@ Public Class clshrsApproval
             Dim strQuery2 As String = ""
             Dim strQuery3 As String = ""
             Dim i, j, k As Integer
-            strQuery = "Update ""@Z_HR_OSEAPP"" set U_Z_SrCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSMrRemark='" & strBRmark & "' ,  U_Z_PSMrRemark='" & strPRmark & "' ,  U_Z_CSMrRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SrCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSMrRemark='" & strBRmark & "' ,  U_Z_PSMrRemark='" & strPRmark & "' ,  U_Z_CSMrRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             'oRec.DoQuery(strQuery)
             oHTUpdateCol.Clear()
             oHTUpdateCol.Add("U_Z_SrCkApp", strChkStatus)
@@ -1762,23 +1840,24 @@ Public Class clshrsApproval
             oHTUpdateCol.Add("U_Z_CSMrRemark", strCRmark)
             oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             For i = 1 To oHashB.Count
-                If oHashB(i).ToString() <> "" Then
-                    strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_BussSMRate='" & oHashB(i).ToString() & "',U_Z_SrRemark='" & oHashB1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
-                    oRec.DoQuery(strQuery1)
-                End If
+                strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_BussSMRate='" & oHashB(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "',U_Z_BussSMGrade='" & oHashC3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery1)
             Next
             For i = 1 To oHashP.Count
-                If oHashP(i).ToString() <> "" Then
-                    strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_PeoSMRate='" & oHashP(i).ToString() & "',U_Z_SrRemark='" & oHashP1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
-                    oRec.DoQuery(strQuery2)
-                End If
+                strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_PeoSMRate='" & oHashP(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "',U_Z_PeoSMGrade='" & oHashC3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery2)
             Next
             For i = 1 To oHashC.Count
-                If oHashC(i).ToString() <> "" Then
-                    strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_CompSMRate = '" & oHashC(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
-                    oRec.DoQuery(strQuery3)
-                End If
+                strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_CompSMRate = '" & oHashC(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "',U_Z_CompSMGrade='" & oHashC3(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery3)
             Next
+            colSum(DocNo)
+            strQuery = "Update [@Z_HR_SEAPP1] set U_Z_BusSMTotGrade='" & oApplication.Utilities.getstatictextvalue(oForm, "103") & "' where DocEntry='" & DocNo & "'"
+            oRec.DoQuery(strQuery)
+            strQuery = "Update [@Z_HR_SEAPP2] set U_Z_PeoSMTotGrade='" & oApplication.Utilities.getstatictextvalue(oForm, "91") & "' where DocEntry='" & DocNo & "'"
+            oRec.DoQuery(strQuery)
+            strQuery = "Update [@Z_HR_SEAPP3] set U_Z_CoSMTotGrade='" & oApplication.Utilities.getstatictextvalue(oForm, "97") & "' where DocEntry='" & DocNo & "'"
+            oRec.DoQuery(strQuery)
         End If
         Dim stRe1, stRe2, stRe3, stRe4 As String
         stRe1 = oApplication.Utilities.getEdittextvalue(oForm, "15")
@@ -1787,7 +1866,7 @@ Public Class clshrsApproval
         stRe4 = oApplication.Utilities.getEdittextvalue(oForm, "18")
         Dim otest As SAPbobsCOM.Recordset
         otest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-        'otest.DoQuery("Update ""@Z_HR_OSEAPP"" set U_Z_BSelfRemark='" & stRe1 & "',U_Z_BMgrRemark='" & stRe2 & "' ,U_Z_BSMrRemark='" & stRe3 & "',U_Z_BHrRemark ='" & stRe4 & "' where Docentry=" & DocNo)
+        'otest.DoQuery("Update [@Z_HR_OSEAPP] set U_Z_BSelfRemark='" & stRe1 & "',U_Z_BMgrRemark='" & stRe2 & "' ,U_Z_BSMrRemark='" & stRe3 & "',U_Z_BHrRemark ='" & stRe4 & "' where Docentry=" & DocNo)
         oHTUpdateCol.Clear()
         oHTUpdateCol.Add("U_Z_BSelfRemark", stRe1)
         oHTUpdateCol.Add("U_Z_BMgrRemark", stRe2)
@@ -1797,10 +1876,9 @@ Public Class clshrsApproval
         oApplication.Utilities.Message("Updated Sucessfully", SAPbouiCOM.BoStatusBarMessageType.smt_Success)
     End Sub
 
-    Private Sub UpdateDocument1(ByVal oHashB As Hashtable, ByVal oHashP As Hashtable, ByVal oHashC As Hashtable, ByVal strBRmark As String, ByVal strPRmark As String, ByVal strCRmark As String, ByVal strWStatus As String, ByVal DocNo As Integer, ByVal intFlag As Integer, ByVal oHGrevence As Hashtable, ByVal strChkStatus As String, ByVal oHashB1 As Hashtable, ByVal oHashP1 As Hashtable, ByVal oHashC1 As Hashtable)
-        Dim oRec, oTemp As SAPbobsCOM.Recordset
+    Private Sub UpdateDocument1(ByVal oHashB As Hashtable, ByVal oHashP As Hashtable, ByVal oHashC As Hashtable, ByVal strBRmark As String, ByVal strPRmark As String, ByVal strCRmark As String, ByVal strWStatus As String, ByVal DocNo As Integer, ByVal intFlag As Integer, ByVal oHGrevence As Hashtable, ByVal strChkStatus As String, ByVal oHashB1 As Hashtable, ByVal oHashP1 As Hashtable, ByVal oHashC1 As Hashtable, ByVal oHashB3 As Hashtable, ByVal oHashP3 As Hashtable, ByVal oHashC3 As Hashtable)
+        Dim oRec As SAPbobsCOM.Recordset
         oRec = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-        oTemp = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
         oHTUpdateCol = New Hashtable()
 
         If intFlag = 1 Then
@@ -1813,7 +1891,7 @@ Public Class clshrsApproval
             If oHGrevence.Count > 0 Then
                 If oHGrevence(1).ToString() = "Y" Then
                     If oHGrevence(2).ToString() = "A" Then
-                        strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' ,""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                        strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "' Where DocEntry=" & DocNo & ""
                         oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                         oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                         oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1822,7 +1900,7 @@ Public Class clshrsApproval
                         oHTUpdateCol.Add("U_Z_GStatus", oHGrevence(2).ToString())
                     Else
                         If oHGrevence(2).ToString = "-" Then
-                            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "' Where DocEntry=" & DocNo & ""
                             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                             oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1830,7 +1908,7 @@ Public Class clshrsApproval
                             oHTUpdateCol.Add("U_Z_CSelfRemark", strCRmark)
                             oHTUpdateCol.Add("U_Z_GStatus", oHGrevence(2).ToString())
                         Else
-                            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "',""U_Z_GStatus""='" & oHGrevence(2).ToString() & "',""U_Z_GDate""='" & oHGrevence(3).ToString() & "',""U_Z_GNo""='" & oHGrevence(4).ToString() & "',""U_Z_GRemarks""='" & oHGrevence(5).ToString() & "' Where ""DocEntry""=" & DocNo & ""
+                            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "',U_Z_GStatus='" & oHGrevence(2).ToString() & "',U_Z_GDate='" & oHGrevence(3).ToString() & "',U_Z_GNo='" & oHGrevence(4).ToString() & "',U_Z_GRemarks='" & oHGrevence(5).ToString() & "' Where DocEntry=" & DocNo & ""
                             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
                             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
                             oHTUpdateCol.Add("U_Z_BSelfRemark", strBRmark)
@@ -1847,7 +1925,7 @@ Public Class clshrsApproval
                 End If
             End If
 
-            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SCkApp""='" & strChkStatus & "', ""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSelfRemark""='" & strBRmark & "' ,  ""U_Z_PSelfRemark""='" & strPRmark & "' ,  ""U_Z_CSelfRemark""='" & strCRmark & "' Where ""DocEntry""=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SCkApp='" & strChkStatus & "', U_Z_WStatus='" & strWStatus & "' , U_Z_BSelfRemark='" & strBRmark & "' ,  U_Z_PSelfRemark='" & strPRmark & "' ,  U_Z_CSelfRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             oHTUpdateCol.Clear()
             oHTUpdateCol.Add("U_Z_SCkApp", strChkStatus)
             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
@@ -1857,25 +1935,63 @@ Public Class clshrsApproval
             oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             'oRec.DoQuery(strQuery)
             For i = 1 To oHashB.Count
-                strQuery1 = "Update ""@Z_HR_SEAPP1"" set ""U_Z_SelfRaCode""='" & oHashB(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery1)
+                If oHashB(i).ToString() <> "" Then
+                    strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_SelfRaCode='" & oHashB(i).ToString() & "',U_Z_SelfRemark='" & oHashB1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery1)
+                End If
             Next
             For i = 1 To oHashP.Count
-                strQuery2 = "Update ""@Z_HR_SEAPP2"" set ""U_Z_SelfRaCode""='" & oHashP(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery2)
+                If oHashP(i).ToString() <> "" Then
+                    strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_SelfRaCode='" & oHashP(i).ToString() & "',U_Z_SelfRemark='" & oHashP1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery2)
+                End If
             Next
             For i = 1 To oHashC.Count
-                strQuery3 = "Update ""@Z_HR_SEAPP3"" set ""U_Z_SelfRaCode"" = '" & oHashC(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                oRec.DoQuery(strQuery3)
+                If oHashC(i).ToString() <> "" Then
+                    strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_SelfRaCode = '" & oHashC(i).ToString() & "', U_Z_SelfRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                    oRec.DoQuery(strQuery3)
+                End If
             Next
+            If strWStatus = "SE" Then
+                oRec.DoQuery("Select * from [@Z_HR_OSEAPP] where DocEntry='" & DocNo & "'")
+                oDtAppraisal = oForm.DataSources.DataTables.Item("dtAppraisal")
+                oDtAppraisal.Rows.Clear()
+                oDtAppraisal.Rows.Add(1)
+                oDtAppraisal.SetValue("DocEntry", 0, DocNo)
 
+                For index As Integer = 0 To oDtAppraisal.Rows.Count - 1
+                    oRecordSet = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
+                    sQuery = "Select T0.Email,T1.Email,T1.FirstName +' ' + T1.lastName As Name  From OHEM T0 JOIN OHEM T1  ON T0.Manager = T1.EmpID JOIN [@Z_HR_OSEAPP] T2 ON T0.EmpID = T2.U_Z_EmpId Where T2.DocEntry = '" & DocNo & "'"
+                    oRecordSet.DoQuery(sQuery)
+                    If Not oRecordSet.EoF Then
+                        oDtAppraisal.SetValue("ccID", index, oRecordSet.Fields.Item(0).Value)
+                        oDtAppraisal.SetValue("toID", index, oRecordSet.Fields.Item(1).Value)
+                        oDtAppraisal.SetValue("Name", index, oRecordSet.Fields.Item(2).Value)
+                        oDtAppraisal.SetValue("Type", index, "SF")
+                    End If
+                Next
+
+                If oApplication.Utilities.checkmailconfiguration() = False Then
+                    oApplication.Utilities.Message("Email configuration not availble...", SAPbouiCOM.BoStatusBarMessageType.smt_Error)
+                Else
+                    If Not IsNothing(oDtAppraisal) And oDtAppraisal.Rows.Count > 0 Then
+                        oApplication.SBO_Application.StatusBar.SetText("Generating Report Started....", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                        oApplication.Utilities.generateReport(oDtAppraisal)
+                        oApplication.SBO_Application.StatusBar.SetText("Process Sending Mail....", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                        oApplication.Utilities.SendMail(oDtAppraisal, "Appraisal")
+                        oApplication.SBO_Application.StatusBar.SetText("Mail Process Completed Sucessfully....", SAPbouiCOM.BoMessageTime.bmt_Medium, SAPbouiCOM.BoStatusBarMessageType.smt_Success)
+                    End If
+                End If
+
+                'oApplication.Utilities.SendMailforAppraisal("Self", oRec.Fields.Item("U_Z_EmpId").Value, DocNo)
+            End If
         ElseIf intFlag = 2 Then
             Dim strQuery As String = ""
             Dim strQuery1 As String = ""
             Dim strQuery2 As String = ""
             Dim strQuery3 As String = ""
             Dim i, j, k As Integer
-            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_LCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BMgrRemark""='" & strBRmark & "' ,  ""U_Z_PMgrRemark""='" & strPRmark & "' ,  ""U_Z_CMgrRemark""='" & strCRmark & "' Where ""DocEntry""=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_LCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BMgrRemark='" & strBRmark & "' ,  U_Z_PMgrRemark='" & strPRmark & "' ,  U_Z_CMgrRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             oHTUpdateCol.Clear()
             oHTUpdateCol.Add("U_Z_LCkApp", strChkStatus)
             oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
@@ -1885,20 +2001,20 @@ Public Class clshrsApproval
             oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             'oRec.DoQuery(strQuery)
             For i = 1 To oHashB.Count
-                strQuery1 = "Update ""@Z_HR_SEAPP1"" set ""U_Z_MgrRaCode""='" & oHashB(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_MgrRaCode='" & oHashB(i).ToString() & "',U_Z_MgrRemark='" & oHashB1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery1)
             Next
             For i = 1 To oHashP.Count
-                strQuery2 = "Update ""@Z_HR_SEAPP2"" set ""U_Z_MgrRaCode""='" & oHashP(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_MgrRaCode='" & oHashP(i).ToString() & "',U_Z_MgrRemark='" & oHashP1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery2)
             Next
             For i = 1 To oHashC.Count
-                strQuery3 = "Update ""@Z_HR_SEAPP3"" set ""U_Z_MgrRaCode"" = '" & oHashC(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
+                strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_MgrRaCode = '" & oHashC(i).ToString() & "',U_Z_MgrRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery3)
             Next
 
             If strChkStatus = "Y" Then
-                strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_LMNotify""='Y' Where ""DocEntry""=" & DocNo & ""
+                strQuery = "Update [@Z_HR_OSEAPP] set U_Z_LMNotify='Y' Where DocEntry=" & DocNo & ""
                 oRec.DoQuery(strQuery)
             End If
 
@@ -1908,45 +2024,30 @@ Public Class clshrsApproval
             Dim strQuery2 As String = ""
             Dim strQuery3 As String = ""
             Dim i, j, k As Integer
-
-            strQuery = "Select U_Z_HRMail,T0.U_Z_EmpId from [@Z_HR_OSEAPP] T0 JOIN OHEM T1 ON T0.U_Z_EmpID=T1.empID where T0.DocEntry='" & DocNo & "'"
-            oTemp.DoQuery(strQuery)
-            If oTemp.RecordCount > 0 Then
-                oHTUpdateCol.Clear()
-                oHTUpdateCol.Add("U_Z_SrCkApp", strChkStatus)
-                oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
-                oHTUpdateCol.Add("U_Z_BSMrRemark", strBRmark)
-                oHTUpdateCol.Add("U_Z_PSMrRemark", strPRmark)
-                oHTUpdateCol.Add("U_Z_CSMrRemark", strCRmark)
-                oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
-                'Dim HRMailId As String = oTemp.Fields.Item(0).Value
-                'If HRMailId <> "" Then
-                '    oApplication.Utilities.SendMailforAppraisal("HR", oTemp.Fields.Item("U_Z_EmpId").Value, DocNo, HRMailId)
-                'End If
-            End If
-
-
-            strQuery = "Update ""@Z_HR_OSEAPP"" set ""U_Z_SrCkApp""='" & strChkStatus & "',""U_Z_WStatus""='" & strWStatus & "' , ""U_Z_BSMrRemark""='" & strBRmark & "' ,  ""U_Z_PSMrRemark""='" & strPRmark & "' ,  ""U_Z_CSMrRemark""='" & strCRmark & "' Where ""DocEntry""=" & DocNo & ""
+            strQuery = "Update [@Z_HR_OSEAPP] set U_Z_SrCkApp='" & strChkStatus & "',U_Z_WStatus='" & strWStatus & "' , U_Z_BSMrRemark='" & strBRmark & "' ,  U_Z_PSMrRemark='" & strPRmark & "' ,  U_Z_CSMrRemark='" & strCRmark & "' Where DocEntry=" & DocNo & ""
             'oRec.DoQuery(strQuery)
-
+            oHTUpdateCol.Clear()
+            oHTUpdateCol.Add("U_Z_SrCkApp", strChkStatus)
+            oHTUpdateCol.Add("U_Z_WStatus", strWStatus)
+            oHTUpdateCol.Add("U_Z_BSMrRemark", strBRmark)
+            oHTUpdateCol.Add("U_Z_PSMrRemark", strPRmark)
+            oHTUpdateCol.Add("U_Z_CSMrRemark", strCRmark)
+            oApplication.Utilities.UpdateUsing_DIAPI("Z_HR_OSELAPP", DocNo, oHTUpdateCol)
             For i = 1 To oHashB.Count
-                If oHashB(i).ToString() <> "" Then
-                    strQuery1 = "Update ""@Z_HR_SEAPP1"" set ""U_Z_SMRaCode""='" & oHashB(i).ToString() & "',U_Z_SrRemark='" & oHashB1(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                    oRec.DoQuery(strQuery1)
-                End If
+                strQuery1 = "Update [@Z_HR_SEAPP1] set U_Z_SMRaCode='" & oHashB(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery1)
             Next
             For i = 1 To oHashP.Count
-                If oHashP(i).ToString() <> "" Then
-                    strQuery2 = "Update ""@Z_HR_SEAPP2"" set ""U_Z_SMRaCode""='" & oHashP(i).ToString() & "',U_Z_SrRemark='" & oHashP1(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                    oRec.DoQuery(strQuery2)
-                End If
+                strQuery2 = "Update [@Z_HR_SEAPP2] set U_Z_SMRaCode='" & oHashP(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery2)
             Next
             For i = 1 To oHashC.Count
-                If oHashC(i).ToString() <> "" Then
-                    strQuery3 = "Update ""@Z_HR_SEAPP3"" set ""U_Z_SMRaCode"" = '" & oHashC(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "' Where ""LineId""=" & i & " and ""DocEntry""=" & DocNo & ""
-                    oRec.DoQuery(strQuery3)
-                End If
+                strQuery3 = "Update [@Z_HR_SEAPP3] set U_Z_SMRaCode = '" & oHashC(i).ToString() & "',U_Z_SrRemark='" & oHashC1(i).ToString() & "' Where LineId=" & i & " and DocEntry=" & DocNo & ""
+                oRec.DoQuery(strQuery3)
             Next
+
+        
+
         End If
         Dim stRe1, stRe2, stRe3, stRe4 As String
         stRe1 = oApplication.Utilities.getEdittextvalue(oForm, "15")
@@ -1955,7 +2056,7 @@ Public Class clshrsApproval
         stRe4 = oApplication.Utilities.getEdittextvalue(oForm, "18")
         Dim otest As SAPbobsCOM.Recordset
         otest = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
-        'otest.DoQuery("Update ""@Z_HR_OSEAPP"" set U_Z_BSelfRemark='" & stRe1 & "',U_Z_BMgrRemark='" & stRe2 & "' ,U_Z_BSMrRemark='" & stRe3 & "',U_Z_BHrRemark ='" & stRe4 & "' where Docentry=" & DocNo)
+        'otest.DoQuery("Update [@Z_HR_OSEAPP] set U_Z_BSelfRemark='" & stRe1 & "',U_Z_BMgrRemark='" & stRe2 & "' ,U_Z_BSMrRemark='" & stRe3 & "',U_Z_BHrRemark ='" & stRe4 & "' where Docentry=" & DocNo)
         oHTUpdateCol.Clear()
         oHTUpdateCol.Add("U_Z_BSelfRemark", stRe1)
         oHTUpdateCol.Add("U_Z_BMgrRemark", stRe2)
@@ -2080,6 +2181,8 @@ Public Class clshrsApproval
                                         dblVate = oRateRs.Fields.Item("U_Z_Total").Value
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Self Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Self Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, 0)
                                     End If
@@ -2113,6 +2216,8 @@ Public Class clshrsApproval
                                         dblVate = oRateRs.Fields.Item("U_Z_Total").Value
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Self Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Self Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, 0)
                                     End If
@@ -2145,6 +2250,8 @@ Public Class clshrsApproval
                                         '    dblFinalRate = dblweight / dblExpectedLevel * dblSelfRate
                                         'End If
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("First Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("First Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2176,6 +2283,8 @@ Public Class clshrsApproval
                                         '    dblFinalRate = dblweight / dblExpectedLevel * dblSelfRate
                                         'End If
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Second Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Second Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2200,6 +2309,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Self Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Self Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, 0)
                                     End If
@@ -2223,6 +2334,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("First Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("First Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2246,6 +2359,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Second Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Second Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2269,6 +2384,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Self Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Self Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Self Rating Value", pVal.Row, 0)
                                     End If
@@ -2292,6 +2409,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("First Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("First Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("First Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2315,6 +2434,8 @@ Public Class clshrsApproval
                                         dblweight = oApplication.Utilities.getDocumentQuantity(strWeight)
                                         dblVate = dblVate * dblweight
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, dblVate / 100)
+                                        dblselrate = oApplication.Utilities.getDocumentQuantity(oGrid1.DataTable.GetValue("Second Level Manager Rating Value", pVal.Row)) 'dblVate / 100
+                                        oGrid1.DataTable.SetValue("Second Level Manager Grade", pVal.Row, oApplication.Utilities.GetAppraisalGrade(dblselrate))
                                     Else
                                         oGrid1.DataTable.SetValue("Second Level Manager Rating Value", pVal.Row, 0)
                                     End If
@@ -2409,6 +2530,11 @@ Public Class clshrsApproval
                                     Dim oHashBusRating2 As Hashtable
                                     Dim oHashPeoRating2 As Hashtable
                                     Dim oHashComRating2 As Hashtable
+
+                                    Dim oHashBusRating3 As Hashtable
+                                    Dim oHashPeoRating3 As Hashtable
+                                    Dim oHashComRating3 As Hashtable
+
                                     Dim strBStatus As String
                                     Dim strPStatus As String
                                     Dim strCStatus As String
@@ -2442,11 +2568,13 @@ Public Class clshrsApproval
                                             oHashBusRating = New Hashtable()
                                             oHashBusRating1 = New Hashtable()
                                             oHashBusRating2 = New Hashtable()
+                                            oHashBusRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P1.Rows.Count - 1
                                                 oHashBusRating.Add(i + 1, oGrid_P1.DataTable.GetValue("Self Rating Value", i))
                                                 oHashBusRating1.Add(i + 1, oGrid_P1.DataTable.GetValue("U_Z_SelfRaCode", i))
                                                 oHashBusRating2.Add(i + 1, oGrid_P1.DataTable.GetValue("Self Remarks", i))
+                                                oHashBusRating3.Add(i + 1, oGrid_P1.DataTable.GetValue("Self Grade", i))
                                             Next
                                         End If
 
@@ -2454,11 +2582,13 @@ Public Class clshrsApproval
                                             oHashPeoRating = New Hashtable()
                                             oHashPeoRating1 = New Hashtable()
                                             oHashPeoRating2 = New Hashtable()
+                                            oHashPeoRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P2.Rows.Count - 1
                                                 oHashPeoRating.Add(i + 1, oGrid_P2.DataTable.GetValue("Self Rating Value", i))
                                                 oHashPeoRating1.Add(i + 1, oGrid_P2.DataTable.GetValue("U_Z_SelfRaCode", i))
                                                 oHashPeoRating2.Add(i + 1, oGrid_P2.DataTable.GetValue("Self Remarks", i))
+                                                oHashPeoRating3.Add(i + 1, oGrid_P2.DataTable.GetValue("Self Grade", i))
                                             Next
                                         End If
 
@@ -2466,11 +2596,13 @@ Public Class clshrsApproval
                                             oHashComRating = New Hashtable()
                                             oHashComRating1 = New Hashtable()
                                             oHashComRating2 = New Hashtable()
+                                            oHashComRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P3.Rows.Count - 1
                                                 oHashComRating.Add(i + 1, oGrid_P3.DataTable.GetValue("Self Rating Value", i))
                                                 oHashComRating1.Add(i + 1, oGrid_P3.DataTable.GetValue("U_Z_SelfRaCode", i))
                                                 oHashComRating2.Add(i + 1, oGrid_P3.DataTable.GetValue("Self Remarks", i))
+                                                oHashComRating3.Add(i + 1, oGrid_P3.DataTable.GetValue("Self Grade", i))
                                             Next
                                         End If
                                         Dim strworkflowstatus As String
@@ -2533,8 +2665,8 @@ Public Class clshrsApproval
                                         If oChek.Checked Then
                                             Dim iret As Int16 = oApplication.SBO_Application.MessageBox("Sure Want to Approve Document", 2, "Yes", "No", "")
                                             If iret = 1 Then
-                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                                 If Not oHashGrevence(2) = "A" Then
                                                     oApplication.Utilities.UpdateTimeStamp(DocNo, "SF")
@@ -2542,8 +2674,8 @@ Public Class clshrsApproval
 
                                             End If
                                         Else
-                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 1, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                             'TimeStamp for Acceptance
                                             If pVal.ItemUID = "btnGra" Then
@@ -2555,33 +2687,39 @@ Public Class clshrsApproval
                                             oHashBusRating = New Hashtable()
                                             oHashBusRating1 = New Hashtable()
                                             oHashBusRating2 = New Hashtable()
+                                            oHashBusRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P1.Rows.Count - 1
                                                 oHashBusRating.Add(i + 1, oGrid_P1.DataTable.GetValue("First Level Manager Rating Value", i))
                                                 oHashBusRating1.Add(i + 1, oGrid_P1.DataTable.GetValue("U_Z_MgrRaCode", i))
                                                 oHashBusRating2.Add(i + 1, oGrid_P1.DataTable.GetValue("First Level Manager Remarks", i))
+                                                oHashBusRating3.Add(i + 1, oGrid_P1.DataTable.GetValue("First Level Manager Grade", i))
                                             Next
                                         End If
                                         If oGrid_P2.Rows.Count > 0 Then
                                             oHashPeoRating = New Hashtable()
                                             oHashPeoRating1 = New Hashtable()
                                             oHashPeoRating2 = New Hashtable()
+                                            oHashPeoRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P2.Rows.Count - 1
                                                 oHashPeoRating.Add(i + 1, oGrid_P2.DataTable.GetValue("First Level Manager Rating Value", i))
                                                 oHashPeoRating1.Add(i + 1, oGrid_P2.DataTable.GetValue("U_Z_MgrRaCode", i))
                                                 oHashPeoRating2.Add(i + 1, oGrid_P2.DataTable.GetValue("First Level Manager Remarks", i))
+                                                oHashPeoRating3.Add(i + 1, oGrid_P2.DataTable.GetValue("First Level Manager Grade", i))
                                             Next
                                         End If
                                         If oGrid_P3.Rows.Count > 0 Then
                                             oHashComRating = New Hashtable()
                                             oHashComRating1 = New Hashtable()
                                             oHashComRating2 = New Hashtable()
+                                            oHashComRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P3.Rows.Count - 1
                                                 oHashComRating.Add(i + 1, oGrid_P3.DataTable.GetValue("First Level Manager Rating Value", i))
                                                 oHashComRating1.Add(i + 1, oGrid_P3.DataTable.GetValue("U_Z_MgrRaCode", i))
                                                 oHashComRating2.Add(i + 1, oGrid_P3.DataTable.GetValue("First Level Manager Remarks", i))
+                                                oHashComRating3.Add(i + 1, oGrid_P3.DataTable.GetValue("First Level Manager Grade", i))
                                             Next
                                         End If
                                         strstatus = oComboStatus.Selected.Value.ToString()
@@ -2618,15 +2756,15 @@ Public Class clshrsApproval
                                         If oChek.Checked Then
                                             Dim iret As Int16 = oApplication.SBO_Application.MessageBox("Sure Want to Approve Document", 2, "Yes", "No", "")
                                             If iret = 1 Then
-                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                                 oApplication.Utilities.UpdateTimeStamp(DocNo, "FL")
                                                 blnSendMail = True
                                             End If
                                         Else
-                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 2, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                         End If
 
@@ -2663,33 +2801,39 @@ Public Class clshrsApproval
                                             oHashBusRating = New Hashtable()
                                             oHashBusRating1 = New Hashtable()
                                             oHashBusRating2 = New Hashtable()
+                                            oHashBusRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P1.Rows.Count - 1
                                                 oHashBusRating.Add(i + 1, oGrid_P1.DataTable.GetValue("Second Level Manager Rating Value", i))
                                                 oHashBusRating1.Add(i + 1, oGrid_P1.DataTable.GetValue("U_Z_SMRaCode", i))
                                                 oHashBusRating2.Add(i + 1, oGrid_P1.DataTable.GetValue("Second Level Manager Remarks", i))
+                                                oHashBusRating3.Add(i + 1, oGrid_P1.DataTable.GetValue("Second Level Manager Grade", i))
                                             Next
                                         End If
                                         If oGrid_P2.Rows.Count > 0 Then
                                             oHashPeoRating = New Hashtable()
                                             oHashPeoRating1 = New Hashtable()
                                             oHashPeoRating2 = New Hashtable()
+                                            oHashPeoRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P2.Rows.Count - 1
                                                 oHashPeoRating.Add(i + 1, oGrid_P2.DataTable.GetValue("Second Level Manager Rating Value", i))
                                                 oHashPeoRating1.Add(i + 1, oGrid_P2.DataTable.GetValue("U_Z_SMRaCode", i))
                                                 oHashPeoRating2.Add(i + 1, oGrid_P2.DataTable.GetValue("Second Level Manager Remarks", i))
+                                                oHashPeoRating3.Add(i + 1, oGrid_P2.DataTable.GetValue("Second Level Manager Grade", i))
                                             Next
                                         End If
                                         If oGrid_P3.Rows.Count > 0 Then
                                             oHashComRating = New Hashtable()
                                             oHashComRating1 = New Hashtable()
                                             oHashComRating2 = New Hashtable()
+                                            oHashComRating3 = New Hashtable()
                                             Dim i As Integer
                                             For i = 0 To oGrid_P3.Rows.Count - 1
                                                 oHashComRating.Add(i + 1, oGrid_P3.DataTable.GetValue("Second Level Manager Rating Value", i))
                                                 oHashComRating1.Add(i + 1, oGrid_P3.DataTable.GetValue("U_Z_SMRaCode", i))
                                                 oHashComRating2.Add(i + 1, oGrid_P3.DataTable.GetValue("Second Level Manager Remarks", i))
+                                                oHashComRating3.Add(i + 1, oGrid_P3.DataTable.GetValue("Second Level Manager Grade", i))
                                             Next
                                         End If
                                         strstatus = oComboStatus.Selected.Value.ToString()
@@ -2726,15 +2870,15 @@ Public Class clshrsApproval
                                         If oChek.Checked Then
                                             Dim iret As Int16 = oApplication.SBO_Application.MessageBox("Sure Want to Approve Document", 2, "Yes", "No", "")
                                             If iret = 1 Then
-                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                                UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                                UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                                 oApplication.Utilities.UpdateTimeStamp(DocNo, "SL")
                                                 blnSendMail = True
                                             End If
                                         Else
-                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
-                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2)
+                                            UpdateDocument(oHashBusRating, oHashPeoRating, oHashComRating, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
+                                            UpdateDocument1(oHashBusRating1, oHashPeoRating1, oHashComRating1, strBStatus, strPStatus, strCStatus, strWAppStatus, DocNo, 3, oHashGrevence, strChkAppStatus, oHashBusRating2, oHashPeoRating2, oHashComRating2, oHashBusRating3, oHashPeoRating3, oHashComRating3)
 
                                         End If
                                          If pVal.ItemUID = "44" And blnSendMail Then
@@ -3104,7 +3248,7 @@ Public Class clshrsApproval
                                         oGrid_P3.Columns.Item("Current Level").Editable = False
                                         Disable(strDStatus)
 
-                                        colSum()
+                                        colSum(DocNo)
 
                                         If oForm.Title = "HR Acceptance" Then
                                             oForm.Items.Item("16").Enabled = False
@@ -3559,7 +3703,7 @@ Public Class clshrsApproval
                                 ElseIf pVal.ItemUID = "1000001" Then
                                     oForm.Freeze(True)
                                     oForm.Items.Item("8").Visible = True
-                                    oForm.PaneLevel = 0
+                                    oForm.PaneLevel = 6
                                     If oForm.Title = "HR Acceptance" Then
                                         oForm.ActiveItem = "18"
                                     ElseIf oForm.Title = "Self Appraisals" Then
@@ -3719,7 +3863,10 @@ Public Class clshrsApproval
         Return _retVal
     End Function
 
-    Private Sub colSum()
+    Private Sub colSum(Optional ByVal DocNo As String = "")
+        Dim strQuery, strGrade As String
+        Dim oRecset As SAPbobsCOM.Recordset
+        oRecset = oApplication.Company.GetBusinessObject(SAPbobsCOM.BoObjectTypes.BoRecordset)
 
         oGrid_P1 = oForm.Items.Item("8").Specific
         oGrid_P2 = oForm.Items.Item("9").Specific
@@ -3753,6 +3900,52 @@ Public Class clshrsApproval
         oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
         oEditTextColumn = oGrid_P3.Columns.Item("Second Level Manager Rating Value")
         oEditTextColumn.ColumnSetting.SumType = SAPbouiCOM.BoColumnSumType.bst_Auto
+        If DocNo <> "" And DocNo <> "99999" Then
+            strQuery = "Select sum(U_Z_BussSelfRate) from [@Z_HR_SEAPP1] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "99", strGrade)
+
+            strQuery = "Select sum(isnull(U_Z_BussMgrRate,'0')) from [@Z_HR_SEAPP1] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "101", strGrade)
+
+            strQuery = "Select sum(isnull(U_Z_BussSMRate,'0')) from [@Z_HR_SEAPP1] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "103", strGrade)
+
+            strQuery = "Select sum(U_Z_PeoSelfRate) from [@Z_HR_SEAPP2] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "1000002", strGrade)
+
+            strQuery = "Select sum(U_Z_PeoMgrRate) from [@Z_HR_SEAPP2] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "89", strGrade)
+
+            strQuery = "Select sum(U_Z_PeoSMRate) from [@Z_HR_SEAPP2] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "91", strGrade)
+
+            strQuery = "Select sum(U_Z_CompSelfRate) from [@Z_HR_SEAPP3] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "93", strGrade)
+
+            strQuery = "Select sum(U_Z_CompMgrRate) from [@Z_HR_SEAPP3] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "95", strGrade)
+
+            strQuery = "Select sum(U_Z_CompSMRate) from [@Z_HR_SEAPP3] where DocEntry='" & DocNo & "'"
+            oRecset.DoQuery(strQuery)
+            strGrade = oApplication.Utilities.GetAppraisalGrade(oRecset.Fields.Item(0).Value)
+            oApplication.Utilities.setStatictextvalue(oForm, "97", strGrade)
+        End If
 
     End Sub
 
