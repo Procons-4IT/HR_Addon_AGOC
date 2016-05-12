@@ -1007,3 +1007,9 @@ F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\201
 F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160427_AGOC HR 2.0.71\obj\Debug\Human Resources.vbprojResolveAssemblyReference.cache
 F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160427_AGOC HR 2.0.71\obj\Debug\HumanResources.Resources.resources
 F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160427_AGOC HR 2.0.71\obj\Debug\Human Resources.vbproj.GenerateResource.Cache
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Interop.SAPbobsCOM.dll
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Interop.SAPbouiCOM.dll
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Human Resources.vbproj.ResolveComReference.cache
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Human Resources.exe
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Human Resources.xml
+F:\Internation Projects 2016\Procons4it\HumanResource\Addon\AGOC\Source Code\20160512_AGOC HR 2.0.72\obj\Debug\Human Resources.pdb

@@ -244,6 +244,16 @@
 
                         strQuery1 = "Update [@Z_HR_EXPCL] set U_Z_NxtApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_NxtApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
+
+
+
+                    Case "Loanee"
+
+                        strQuery1 = "Update [@Z_HR_LEXPCL] set U_Z_CurApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_CurApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        oTemp2.DoQuery(strQuery1)
+
+                        strQuery1 = "Update [@Z_HR_LEXPCL] set U_Z_NxtApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_NxtApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        oTemp2.DoQuery(strQuery1)
                        
                     Case "TraReq"
 
@@ -279,10 +289,10 @@
                         oTemp2.DoQuery(strQuery1)
 
 
-                        strQuery1 = "Update [U_VACPOSITION] set   U_Z_CurApprover1='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_CurApprover1='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        strQuery1 = "Update [U_VACPOSITION] set   U_CurApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_CurApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
 
-                        strQuery1 = "Update [U_VACPOSITION] set  U_Z_NxtApprover1='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_Z_NxtApprover1='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
+                        strQuery1 = "Update [U_VACPOSITION] set  U_NxtApprover='" & strReplaceApprover & "' where U_Z_APPStatus='P' and U_NxtApprover='" & strCurrentyApprover & "' and U_Z_ApproveID=" & oTemp1.Fields.Item("DocEntry").Value
                         oTemp2.DoQuery(strQuery1)
                      
 
